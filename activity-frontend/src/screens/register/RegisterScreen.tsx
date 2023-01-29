@@ -3,9 +3,11 @@ import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import logo from "../../assets/Logo_ESPE.png";
 import FaceIcon from '@mui/icons-material/Face';
+import { useTeacher } from "../../hooks/useTeacher";
 
 export const RegisterScreen = () => {
   const [nombre, setNombre] = useState("");
+  const {getTeachers}= useTeacher();
   function TextInput(textinput: TextFieldProps) {
     return (
       <TextField
@@ -93,7 +95,8 @@ export const RegisterScreen = () => {
                 fontSize: "18px",
                 color: "white",
                 background: "#036A3F",
-              }}              
+              }}    
+              onClick={getTeachers}          
             >
              Crear Cuenta
             </Button>
