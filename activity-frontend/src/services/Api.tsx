@@ -22,7 +22,10 @@ export class Api {
   };
   static get =async(url:string):Promise<any>=>{
     try {
-      const res = await this.service.get(url);
+      const res = await this.service.get(url,{headers:{
+        Accept:"*/*",
+        "Content-Type": "application/json",
+      }});
       if (!res.data) {
         return res;
       }

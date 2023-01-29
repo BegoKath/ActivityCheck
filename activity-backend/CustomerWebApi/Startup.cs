@@ -25,8 +25,15 @@ namespace CustomerWebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
             services.AddControllers();
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.WithOrigins("http://localhost:3000")
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             var dbHost = "localhost";
             var dbName = "activity_check";
             var dbPassword = "123456";
@@ -43,6 +50,7 @@ namespace CustomerWebApi
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("MyPolicy");
             app.UseRouting();
 
             app.UseAuthorization();
