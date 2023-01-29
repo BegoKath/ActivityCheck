@@ -17,3 +17,6 @@ export const teacherSlice =createSlice({
         }
     }
 });
+
+export const teacherActions = teacherSlice.actions;
+export const teacherReducer = teacherSlice.reducer;
