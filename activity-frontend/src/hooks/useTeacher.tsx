@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux"
+import { ITeacher } from "../interfaces/ITeacher";
 import { ITeacherState } from "../store/slices/teacher/teacherSlice"
 import { teacherThunks } from "../store/slices/teacher/teacherThunks";
 
@@ -7,8 +8,9 @@ export const useTeacher =()=>{
     const dispatch = useDispatch();
 
     const getTeachers =()=> dispatch(teacherThunks.getTeachers());
+    const setTeacher =(values:ITeacher)=> dispatch(teacherThunks.setTeacher(values));
     return {
         state,
-        getTeachers
+        getTeachers,setTeacher
     }
 };

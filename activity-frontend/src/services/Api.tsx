@@ -11,9 +11,12 @@ export class Api {
     token?: string
   ): Promise<any> => {
     try {
-      const res = await this.service.post(url, body);
+      const res = await this.service.post(url, body,{headers:{
+        Accept:"*/*",
+        "Content-Type": "application/json",
+      }});
       if (!res.data) {
-        return "Error";
+        return res;
       }
       return res.data;
     } catch (error) {      
