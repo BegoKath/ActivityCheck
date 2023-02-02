@@ -1,30 +1,27 @@
-import { Button, TextField, TextFieldProps } from "@mui/material";
-import { useState } from "react";
+import { Button, TextField } from "@mui/material";
+import { ChangeEvent, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import logo from "../../assets/Logo_ESPE.png";
-import FaceIcon from '@mui/icons-material/Face';
+import FaceIcon from "@mui/icons-material/Face";
+import { ITeacher } from "../../interfaces/ITeacher";
+import { useTeacher } from "../../hooks/useTeacher";
 
 export const RegisterScreen = () => {
-  const [nombre, setNombre] = useState("");
-  function TextInput(textinput: TextFieldProps) {
-    return (
-      <TextField
-        required
-        id={textinput.id}
-        style={{ width: "90%", margin: "20px" }}
-        label={textinput.label}
-        variant="standard"
-        onChange={() => setNombre(textinput.value as string)}
-        type={textinput.type}
-        InputProps={{
-          style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
-        }} // font size of input text
-        InputLabelProps={{
-          style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
-        }}
-      />
-    );
-  }
+  const {getTeachers,setTeacher}= useTeacher();
+  const [values, setValues] = useState<ITeacher>({
+    idTeacher: 0,
+    emailTeacher: "",
+    passwordTeacher: "",
+    identityNumber: "",
+    names: "",
+    surName: "",
+    faceid: "",
+  });
+  const handleChange =
+    (prop: keyof ITeacher) => (event: ChangeEvent<HTMLInputElement>) => {
+      setValues({ ...values, [prop]: event.target.value });
+    };
+
   return (
     <Container style={page}>
       <Row className="w-100" style={{ background: "#036A3F" }}>
@@ -62,40 +59,123 @@ export const RegisterScreen = () => {
           }}
         >
           <Row style={{ width: "100%", fontSize: "30px" }}>Crear cuenta</Row>
-          <TextInput id="tx-names" label="Nombres" value={nombre} />
-          <TextInput id="tx-lastname" label="Apellidos" value={nombre} />
-          <TextInput
-            id="tx-mail"
-            label="Correo Institucional"
-            value={nombre}
-            type="email"
+          {/*FORMULARIO */}
+          <TextField
+            required
+            style={{ width: "90%", margin: "20px" }}
+            label={"Nombres"}
+            value={values.names}
+            variant="standard"
+            onChange={handleChange("names")}
+            InputProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }} // font size of input text
+            InputLabelProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }}
           />
-          <TextInput id="tx-id" label="ID institucional" value={nombre} />
-          <TextInput id="pw" label="Contraseña" type="password" />
-          <TextInput id="pw" label="Confirmar Contraseña" type="password" />
+          <TextField
+            required
+            style={{ width: "90%", margin: "20px" }}
+            label={"Apellidos"}
+            value={values.surName}
+            variant="standard"
+            onChange={handleChange("surName")}
+            InputProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }} // font size of input text
+            InputLabelProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }}
+          />
+          <TextField
+            required
+            style={{ width: "90%", margin: "20px" }}
+            label={"ID"}
+            value={values.identityNumber}
+            variant="standard"
+            onChange={handleChange("identityNumber")}
+            InputProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }} // font size of input text
+            InputLabelProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }}
+          />
+          <TextField
+            required
+            style={{ width: "90%", margin: "20px" }}
+            label={"Correo Institucional"}
+            value={values.emailTeacher}
+            variant="standard"
+            type="email"
+            onChange={handleChange("emailTeacher")}
+            InputProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }} // font size of input text
+            InputLabelProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }}
+          />
+          <TextField
+            required
+            style={{ width: "90%", margin: "20px" }}
+            label={"Contraseña"}
+            value={values.passwordTeacher}
+            variant="standard"
+            type="password"
+            onChange={handleChange("passwordTeacher")}
+            InputProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }} // font size of input text
+            InputLabelProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }}
+          />
+          <TextField
+            required
+            style={{ width: "90%", margin: "20px" }}
+            label={"Confirmar Contraseña"}
+            value={values.passwordTeacher}
+            variant="standard"
+            type="password"
+            onChange={handleChange("passwordTeacher")}
+            InputProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }} // font size of input text
+            InputLabelProps={{
+              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
+            }}
+          />
+
           <div className="d-flex flex-column justify-content-center align-items-center mt-4">
             <Button
               style={{
-                padding:"5px",
+                padding: "5px",
                 fontFamily: "'Quattrocento', 'serif'",
                 fontSize: "18px",
                 color: "white",
                 background: "#036A3F",
               }}
-              startIcon={<FaceIcon/>}
+              startIcon={<FaceIcon />}
+              onClick={getTeachers}
             >
               Reconocimiento Facial
             </Button>
             <Button
               style={{
-                marginTop:"20px",
+                marginTop: "20px",
                 fontFamily: "'Quattrocento', 'serif'",
                 fontSize: "18px",
                 color: "white",
                 background: "#036A3F",
-              }}              
+              }}
+              onClick={() => {
+                console.log(values);
+                setTeacher(values);                
+              }}
             >
-             Crear Cuenta
+              Crear Cuenta
             </Button>
           </div>
         </Col>
