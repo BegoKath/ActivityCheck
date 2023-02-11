@@ -1,10 +1,12 @@
-
 import { Button } from "@mui/material";
-import {   Container, Row } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Logo_ESPE.png";
+import { useApp } from "../../hooks/useApp";
+import { DialogLogin } from "./component/DialogLogin";
 export const LoginScreen = () => {
-    const navigate= useNavigate();
+  const navigate = useNavigate();
+  const { showDialogLogin } = useApp();
   return (
     <Container style={page}>
       <div className="w-100" style={{ background: "#036A3F" }}>
@@ -31,32 +33,47 @@ export const LoginScreen = () => {
             />
           </div>
         </Row>
-        <Row className="pt-5" style={{justifyContent:"center"}}>
-            <div style={{background:"#fff" ,height:"500px", width:"500px"}}>
-            </div>
+        <Row className="pt-5" style={{ justifyContent: "center" }}>
+          <div
+            style={{ background: "#fff", height: "500px", width: "500px" }}
+          ></div>
         </Row>
-        <Row className="pt-5 d-flex flex-row" style={{justifyContent:"center"}}>
-            <Button style={{
-                width:"200px",
-                marginTop: "20px",
-                fontFamily: "'Quattrocento', 'serif'",
-                fontSize: "15px",
-                color: "#036A3F",
-                background: "#fff",
-              }}>Correo electrónico</Button>
-               <Button style={{
-                width:"200px",
-                marginTop: "20px",
-                marginLeft:"20px",
-                fontFamily: "'Quattrocento', 'serif'",
-                fontSize: "15px",
-                color: "#036A3F",
-                background: "#fff",
-              }} onClick={()=>{
-                navigate('/')
-              }}>Crear Cuenta</Button>
+        <Row
+          className="pt-5 d-flex flex-row"
+          style={{ justifyContent: "center" }}
+        >
+          <Button
+            style={{
+              width: "200px",
+              marginTop: "20px",
+              fontFamily: "'Quattrocento', 'serif'",
+              fontSize: "15px",
+              color: "#036A3F",
+              background: "#fff",
+            }}
+            onClick={showDialogLogin}
+          >
+            Correo electrónico
+          </Button>
+          <Button
+            style={{
+              width: "200px",
+              marginTop: "20px",
+              marginLeft: "20px",
+              fontFamily: "'Quattrocento', 'serif'",
+              fontSize: "15px",
+              color: "#036A3F",
+              background: "#fff",
+            }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Crear Cuenta
+          </Button>
         </Row>
       </div>
+      <DialogLogin />
     </Container>
   );
 };
@@ -72,6 +89,6 @@ const column: React.CSSProperties = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  fontSize:"35px",
-  color:"#fff"
+  fontSize: "35px",
+  color: "#fff",
 };

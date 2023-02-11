@@ -9,6 +9,7 @@ export const useTeacher =()=>{
 
     const getTeachers =()=> dispatch(teacherThunks.getTeachers());
     const setTeacher =(values:ITeacher)=> dispatch(teacherThunks.setTeacher(values));
+    
     return {
         state,
         getTeachers,setTeacher
