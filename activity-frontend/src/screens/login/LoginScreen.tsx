@@ -32,7 +32,7 @@ export const LoginScreen = () => {
           </div>
         </Row>
         <Row className="pt-5" style={{justifyContent:"center"}}>
-            <div style={{background:"#920" ,height:"500px", width:"500px"}}>
+            <div style={{background:"#fff" ,height:"500px", width:"500px"}}>
             </div>
         </Row>
         <Row className="pt-5 d-flex flex-row" style={{justifyContent:"center"}}>
