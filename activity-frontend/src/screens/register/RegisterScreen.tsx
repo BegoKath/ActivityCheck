@@ -1,13 +1,16 @@
-import { Button, TextField } from "@mui/material";
+import { Button, IconButton, TextField } from "@mui/material";
 import { ChangeEvent, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import logo from "../../assets/Logo_ESPE.png";
 import FaceIcon from "@mui/icons-material/Face";
 import { ITeacher } from "../../interfaces/ITeacher";
 import { useTeacher } from "../../hooks/useTeacher";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
 export const RegisterScreen = () => {
   const {getTeachers,setTeacher}= useTeacher();
+  const navigate = useNavigate();
   const [values, setValues] = useState<ITeacher>({
     idTeacher: 0,
     emailTeacher: "",
@@ -35,6 +38,12 @@ export const RegisterScreen = () => {
             alignItems: "center",
           }}
         >
+          <div style={{display:"flex", flexDirection:"row", justifyContent:"start", width:"100%"}}>
+          <IconButton sx={{ fontSize: 90 , color:"white"}} onClick={()=>navigate('/login')}>
+            <ArrowBackIcon />
+          </IconButton>
+          </div>
+          
           <Row className="text-center text-white " style={{ fontSize: "35px" }}>
             Sistema de control de actividades
           </Row>
