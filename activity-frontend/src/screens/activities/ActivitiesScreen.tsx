@@ -1,10 +1,12 @@
-import { Col, Row } from "react-bootstrap";
+import { Button } from "@mui/material";
+import {  Col, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { TableActivities } from "./components/TableActivities";
 
 export const ActivitiesScreen = () => {
   const tiempoTranscurrido = Date.now();
   const hoy = new Date(tiempoTranscurrido);
-
+  const navigate = useNavigate();
   return (
     <div style={page}>
       <div style={head}>
@@ -14,8 +16,24 @@ export const ActivitiesScreen = () => {
         </Row>
       </div>
       <div style={dashboard}>
-        <Col className="col-6 text-center">{hoy.toDateString()}</Col>
-        <Col className="col-6  text-center">Semestre: OCTUBRE 2022 - MARZO 2023</Col>
+        <Col md className="col-md-5 text-center">{hoy.toDateString()}</Col>
+        <Col md className="col-md-5  text-center">Semestre: OCTUBRE 2022 - MARZO 2023</Col>
+        <Col md className="col-md-2 text-center">
+        <Button
+            style={{              
+              
+              fontFamily: "'Quattrocento', 'serif'",
+              fontSize: "15px",
+              color: "#fff",
+              background: "#036A3F",
+            }}
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Iniciar Sesión
+          </Button>
+        </Col>
       </div>
       <div style={{ padding: "20px" }}>
         <TableActivities />
