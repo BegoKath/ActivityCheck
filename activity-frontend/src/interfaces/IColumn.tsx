@@ -1,5 +1,5 @@
 export interface IColumn {
-    id: number;
+    id: string;
     label: string;
     minWidth?: number;
     align?: 'right';
