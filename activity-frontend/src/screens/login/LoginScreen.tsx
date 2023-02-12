@@ -9,7 +9,7 @@ export const LoginScreen = () => {
   const { showDialogLogin } = useApp();
   return (
     <Container style={page}>
-      <div className="w-100" style={{ background: "#036A3F" }}>
+      <div className="w-100" >
         <Row className="pt-5">
           <div className="col-2" style={column}>
             <img
@@ -83,6 +83,7 @@ const page: React.CSSProperties = {
   fontFamily: "'Quattrocento', 'serif'",
   margin: 0,
   display: "flex",
+  background: "#036A3F"
 };
 const column: React.CSSProperties = {
   display: "flex",
