@@ -1,7 +1,10 @@
-import { Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { TableActivities } from "./components/TableActivities";
 
 export const ActivitiesScreen = () => {
+  const tiempoTranscurrido = Date.now();
+  const hoy = new Date(tiempoTranscurrido);
+
   return (
     <div style={page}>
       <div style={head}>
@@ -10,7 +13,11 @@ export const ActivitiesScreen = () => {
           Carrera de Ingeniería de Software
         </Row>
       </div>
-      <div style={{padding:"20px"}}>
+      <div style={dashboard}>
+        <Col className="col-6 text-center">{hoy.toDateString()}</Col>
+        <Col className="col-6  text-center">Semestre: OCTUBRE 2022 - MARZO 2023</Col>
+      </div>
+      <div style={{ padding: "20px" }}>
         <TableActivities />
       </div>
     </div>
@@ -33,4 +40,9 @@ const head: React.CSSProperties = {
   justifyContent: "center",
   alignItems: "center",
   fontSize: "30px",
+};
+const dashboard: React.CSSProperties = {
+  width: "100%",
+  display: "flex",
+  flexDirection: "row",
 };

@@ -33,6 +33,9 @@ export const TableActivities = () => {
                     border: "1px solid #fff",
                     color: "#fff",
                     fontFamily: "'Quattrocento', 'serif'",
+                    fontWeight:"bold",
+                    textAlign:"center"
+                                     
                   }}
                   key={column.id}
                   align={column.align}
@@ -52,6 +55,7 @@ export const TableActivities = () => {
                     return (
                       <TableCell key={column.id} align={column.align} sx={{                    
                         fontFamily: "'Quattrocento', 'serif'",
+                        textAlign:"center"
                       }}>
                         {column.id === "input" || column.id === "output" ? (
                           <Checkbox checked={value as boolean}></Checkbox>
