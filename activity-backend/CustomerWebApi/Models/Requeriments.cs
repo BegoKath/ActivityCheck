@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomerWebApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
