@@ -12,12 +12,14 @@ import { useApp } from "../../../hooks/useApp";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useAuth } from "../../../hooks/useAuth";
 
 export const DialogLogin = () => {
   const {
     state: { openLoginEmail },
     closeDialogLogin,
   } = useApp();
+  const {loginWithEmail} = useAuth();
   const [email, useEmail] = useState("");
   const [password, usePassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -47,6 +49,11 @@ export const DialogLogin = () => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         usePassword(event.target.value);
     };
+
+  const login = ()=>{
+    loginWithEmail(email,password);
+
+  }
   return (
     <Dialog open={openLoginEmail} onClose={closeDialog}>
       <DialogTitle style={{ textAlign: "center" }}>Iniciar Sesión</DialogTitle>
@@ -98,7 +105,7 @@ export const DialogLogin = () => {
         <Button onClick={closeDialog} color="primary">
           Cancelar
         </Button>
-        <Button onClick={closeDialog} color="primary">
+        <Button onClick={login} color="primary">
           Ingresar
         </Button>
       </DialogActions>
