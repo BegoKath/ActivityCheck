@@ -23,7 +23,7 @@ export const DialogLogin = () => {
   const [email, useEmail] = useState("");
   const [password, usePassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const [validation,setValidation]= useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
@@ -51,8 +51,11 @@ export const DialogLogin = () => {
     };
 
   const login = ()=>{
-    loginWithEmail(email,password);
-
+   const res= loginWithEmail(email,password);
+    if(res==="OK"){
+      //alertaaaaas
+      
+    }
   }
   return (
     <Dialog open={openLoginEmail} onClose={closeDialog}>
@@ -75,6 +78,7 @@ export const DialogLogin = () => {
         />
         <TextField
           required
+          
           style={{ width: "90%", margin: "20px" }}
           label={"Contraseña"}
           value={password}
@@ -100,6 +104,7 @@ export const DialogLogin = () => {
             style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
           }}
         />
+        {}
       </DialogContent>
       <DialogActions>
         <Button onClick={closeDialog} color="primary">
