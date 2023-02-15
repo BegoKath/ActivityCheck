@@ -13,6 +13,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useAuth } from "../../../hooks/useAuth";
+import { Alert } from "../../../utils/Alert";
+import { useNavigate } from "react-router-dom";
 
 export const DialogLogin = () => {
   const {
@@ -23,7 +25,8 @@ export const DialogLogin = () => {
   const [email, useEmail] = useState("");
   const [password, usePassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [validation,setValidation]= useState(false);
+  const navigate= useNavigate();
+
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (
@@ -50,11 +53,23 @@ export const DialogLogin = () => {
         usePassword(event.target.value);
     };
 
-  const login = ()=>{
-   const res= loginWithEmail(email,password);
-    if(res==="OK"){
-      //alertaaaaas
-      
+  const login = async ()=>{
+   const res= await loginWithEmail(email,password);
+    if(res==="OK"){      
+      closeDialog();
+      await Alert.showSuccess({message:"Inicio de sesión con exito"});
+      navigate("/activities")
+    }else{
+      if(res=== "Password"){
+        closeDialog();
+        await Alert.showError("Contraseña incorrecta. Vuelva a intentar.")
+      }else if(res==="Error"){
+        closeDialog();
+        await Alert.showError("El correo electrónico que ingresaste no está conectado a una cuenta. Registrate e inicia sesión.");
+      }else{
+        closeDialog();
+        await Alert.showError("Error: 404");
+      }
     }
   }
   return (
