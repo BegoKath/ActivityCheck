@@ -12,7 +12,7 @@ interface itemList {
   key: number;
 }
 export const NavBar = () => {
-  const {state:{navBarAdmin},showNavBarAdmin,closeNavBarAdmin} = useApp();
+  const {state:{navBarAdmin},showNavBarAdmin,closeNavBarAdmin,showSubjectBody,closeSubjectBody,showTeacherBody,closeTeacherBody} = useApp();
 
   let openClose = () => {
     if (navBarAdmin === false) {
@@ -21,9 +21,21 @@ export const NavBar = () => {
       closeNavBarAdmin();
     }
   };
+  const onChangeBody = (label:string)=>{
+    if(label==="Asignaturas"){
+      closeTeacherBody();
+      showSubjectBody();
+    }else if(label==="Docentes"){
+      closeSubjectBody();
+      showTeacherBody();
+    }else{
+      closeSubjectBody();
+      closeTeacherBody();
+    }
+  }
   const Item = ({ label, icon, key }: itemList) => {
     return (
-      <div className="navbar__li-box" key={key}>
+      <div className="navbar__li-box" key={key} onClick={()=>onChangeBody(label)}>
         {icon}
         <li
           className="navbar__li"
@@ -64,7 +76,7 @@ export const NavBar = () => {
         <Item
           label={"Aulas"}
           icon={<MeetingRoomIcon style={iconLi} />}
-          key={2}
+          key={3}
         />
       </ul>
     </nav>

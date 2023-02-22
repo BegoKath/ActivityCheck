@@ -9,12 +9,19 @@ export const useApp =()=>{
     const closeDialogLogin = ()=> dispatch(appActions.showLoginEmail(false));
     const showNavBarAdmin = ()=> dispatch(appActions.setNavBarAdmin(true));
     const closeNavBarAdmin = ()=> dispatch(appActions.setNavBarAdmin(false));
-
+    const showSubjectBody = ()=> dispatch(appActions.setSubjectBody(true));
+    const closeSubjectBody = ()=> dispatch(appActions.setSubjectBody(false));
+    const showTeacherBody = ()=> dispatch(appActions.setTeacherBody(true));
+    const closeTeacherBody= ()=> dispatch(appActions.setTeacherBody(false));
     return{
         state,
         showDialogLogin,
         closeDialogLogin,
         showNavBarAdmin,
-        closeNavBarAdmin
+        closeNavBarAdmin,
+        showSubjectBody,
+        closeSubjectBody,
+        showTeacherBody,
+        closeTeacherBody
     }
 }
