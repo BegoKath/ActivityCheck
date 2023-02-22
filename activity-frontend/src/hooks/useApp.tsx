@@ -7,10 +7,14 @@ export const useApp =()=>{
 
     const showDialogLogin =()=> dispatch(appActions.showLoginEmail(true));
     const closeDialogLogin = ()=> dispatch(appActions.showLoginEmail(false));
+    const showNavBarAdmin = ()=> dispatch(appActions.setNavBarAdmin(true));
+    const closeNavBarAdmin = ()=> dispatch(appActions.setNavBarAdmin(false));
 
     return{
         state,
         showDialogLogin,
-        closeDialogLogin
+        closeDialogLogin,
+        showNavBarAdmin,
+        closeNavBarAdmin
     }
 }

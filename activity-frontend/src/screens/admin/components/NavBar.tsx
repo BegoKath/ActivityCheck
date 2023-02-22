@@ -1,9 +1,10 @@
-import { ReactElement, useState } from "react";
+import { ReactElement} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookIcon from "@mui/icons-material/Book";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import GroupsIcon from '@mui/icons-material/Groups';
 import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import { useApp } from "../../../hooks/useApp";
 
 interface itemList {
   label: string;
@@ -11,13 +12,13 @@ interface itemList {
   key: number;
 }
 export const NavBar = () => {
-  const [window, setWindow] = useState(false);
+  const {state:{navBarAdmin},showNavBarAdmin,closeNavBarAdmin} = useApp();
 
   let openClose = () => {
-    if (window === false) {
-      setWindow(true);
+    if (navBarAdmin === false) {
+      showNavBarAdmin();
     } else {
-      setWindow(false);
+      closeNavBarAdmin();
     }
   };
   const Item = ({ label, icon, key }: itemList) => {
@@ -26,7 +27,7 @@ export const NavBar = () => {
         {icon}
         <li
           className="navbar__li"
-          style={{ display: window === false ? "inline-block" : "none" }}
+          style={{ display: navBarAdmin === false ? "inline-block" : "none" }}
         >
           {label}
         </li>
@@ -36,7 +37,7 @@ export const NavBar = () => {
   return (
     <nav
       className="navbar-menu"
-      style={{ width: window === false ? 250 : 60, background: "#036A3F" }}
+      style={{ width: navBarAdmin === false ? "15%" : "3%", background: "#036A3F" }}
     >
       <div className="burger" onClick={() => openClose()}>
         <MenuIcon

@@ -2,9 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IAppState {
    openLoginEmail:boolean,
+   navBarAdmin:boolean
 }
 const initialState:IAppState={
-    openLoginEmail:false
+    openLoginEmail:false,
+    navBarAdmin:true,
 }
 export const appSlice =createSlice({
     name:"app",
@@ -12,6 +14,9 @@ export const appSlice =createSlice({
     reducers:{
         showLoginEmail:(state,action:PayloadAction<boolean>) =>{
             state.openLoginEmail=action.payload;
+        },
+        setNavBarAdmin:(state,action:PayloadAction<boolean>)=>{
+            state.navBarAdmin =action.payload;
         }
     }
 });
