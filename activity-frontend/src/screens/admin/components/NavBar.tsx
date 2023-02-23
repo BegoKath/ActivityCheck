@@ -1,18 +1,26 @@
-import { ReactElement} from "react";
+import { ReactElement } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import BookIcon from "@mui/icons-material/Book";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
-import GroupsIcon from '@mui/icons-material/Groups';
-import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import GroupsIcon from "@mui/icons-material/Groups";
+import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import { useApp } from "../../../hooks/useApp";
 
 interface itemList {
   label: string;
   icon: ReactElement<any, any>;
-  key: number;
+  keys: number;
 }
 export const NavBar = () => {
-  const {state:{navBarAdmin},showNavBarAdmin,closeNavBarAdmin,showSubjectBody,closeSubjectBody,showTeacherBody,closeTeacherBody} = useApp();
+  const {
+    state: { navBarAdmin },
+    showNavBarAdmin,
+    closeNavBarAdmin,
+    showSubjectBody,
+    closeSubjectBody,
+    showTeacherBody,
+    closeTeacherBody,
+  } = useApp();
 
   let openClose = () => {
     if (navBarAdmin === false) {
@@ -21,23 +29,24 @@ export const NavBar = () => {
       closeNavBarAdmin();
     }
   };
-  const onChangeBody = (label:string)=>{
-    if(label==="Asignaturas"){
+  const onChangeBody = (label: string) => {
+    if (label === "Asignaturas") {
       closeTeacherBody();
       showSubjectBody();
-    }else if(label==="Docentes"){
+    } else if (label === "Docentes") {
       closeSubjectBody();
       showTeacherBody();
-    }else{
+    } else {
       closeSubjectBody();
       closeTeacherBody();
     }
-  }
-  const Item = ({ label, icon, key }: itemList) => {
+  };
+  const Item = ({ label, icon, keys }: itemList) => {
     return (
-      <div className="navbar__li-box" key={key} onClick={()=>onChangeBody(label)}>
+      <div className="navbar__li-box" onClick={() => onChangeBody(label)}>
         {icon}
         <li
+          key={keys}
           className="navbar__li"
           style={{ display: navBarAdmin === false ? "inline-block" : "none" }}
         >
@@ -49,7 +58,10 @@ export const NavBar = () => {
   return (
     <nav
       className="navbar-menu"
-      style={{ width: navBarAdmin === false ? "15%" : "3%", background: "#036A3F" }}
+      style={{
+        width: navBarAdmin === false ? "15%" : "3%",
+        background: "#036A3F",
+      }}
     >
       <div className="burger" onClick={() => openClose()}>
         <MenuIcon
@@ -62,24 +74,28 @@ export const NavBar = () => {
         />
       </div>
       <ul className="navbar__list">
-        <Item label={"Horarios"} icon={<QueryBuilderIcon style={iconLi} />} key={0} />
+        <Item
+          label={"Horarios"}
+          icon={<QueryBuilderIcon style={iconLi} />}
+          keys={0}
+        />
         <Item
           label={"Asignaturas"}
           icon={<BookIcon style={iconLi} />}
-          key={1}
+          keys={1}
         />
-        <Item
-          label={"Docentes"}
-          icon={<GroupsIcon style={iconLi} />}
-          key={2}
-        />
+        <Item label={"Docentes"} icon={<GroupsIcon style={iconLi} />} keys={2} />
         <Item
           label={"Aulas"}
           icon={<MeetingRoomIcon style={iconLi} />}
-          key={3}
+          keys={3}
         />
       </ul>
     </nav>
   );
 };
-const iconLi: React.CSSProperties = { fontSize: 20, color: "whitesmoke",marginLeft:"20px" };
+const iconLi: React.CSSProperties = {
+  fontSize: 20,
+  color: "whitesmoke",
+  marginLeft: "20px",
+};

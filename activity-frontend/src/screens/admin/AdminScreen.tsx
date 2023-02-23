@@ -10,9 +10,9 @@ export const AdminScreen = () => {
   } = useApp();
   const BodyAdmin = ()=>{
     if(subjectBody){
-      return <SubjectBody/>;
+      return <SubjectBody key={"subjectBody"}/>;
     }else if(teacherBody){
-      return <TeacherBody/>;
+      return <TeacherBody key={"teacherBody"}/>;
     }else{
       return <></>
     }
