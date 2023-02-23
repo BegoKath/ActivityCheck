@@ -6,7 +6,8 @@ import { activitiesActions } from "./activitiesSlice";
 
 const getSubject= ():any => async (dispatch: Dispatch) => {
     const subjects = await SubjectService.getSubjects();
-    dispatch(activitiesActions.setSubjects(subjects as ISubject[]))
+    console.log(subjects);
+    dispatch(activitiesActions.setSubjects(subjects as ISubject[]));
 }
 
 

@@ -15,8 +15,8 @@ namespace CustomerWebApi.Models
         [Column("ID")]
         public int IdSubject { get; set; }
         [Column("TITLE")]
-        public int Title { get; set; }
+        public string Title { get; set; }
         [Column("NRC")]
-        public int Nrc { get; set; }
+        public string Nrc { get; set; }
     }
 }

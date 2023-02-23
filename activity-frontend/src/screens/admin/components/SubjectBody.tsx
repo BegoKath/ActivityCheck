@@ -9,15 +9,17 @@ import {
 } from "@mui/material";
 
 import AddIcon from "@mui/icons-material/Add";
-import { ISubject } from "../../../interfaces/ISubject";
 import data from "../../../assets/3024051.jpg";
 import Swal from "sweetalert2";
+import { useActivities } from "../../../hooks/useActivities";
+import { useEffect } from "react";
 
 export const SubjectBody = () => {
-  const subjects: ISubject[] = [
-    { id: 1, title: "Arquitectura", nrc: "225a" },
-    { id: 1, title: "Arquitectura", nrc: "225a" },
-  ];
+  const {state:{subjects}, getSubject}= useActivities();
+useEffect(()=>{getSubject()},[]);
+
+
+
   const fileName = async () => {
     return await Swal.fire({
         title: "Ingrese una nueva Asignatura",
@@ -140,7 +142,7 @@ export const SubjectBody = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {subjects.map((row) => {
+                  {/*{subjects.map((row) => {
                     return (
                       <TableRow>
                         <TableCell
@@ -165,7 +167,7 @@ export const SubjectBody = () => {
                         </TableCell>
                       </TableRow>
                     );
-                  })}
+                  })}*/}
                 </TableBody>
               </Table>
             </>
