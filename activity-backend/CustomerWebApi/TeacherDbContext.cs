@@ -28,6 +28,7 @@ namespace CustomerWebApi
             }
         }
         public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
     }
 }
