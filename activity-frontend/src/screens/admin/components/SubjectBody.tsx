@@ -1,5 +1,6 @@
 import {
   Button,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -7,16 +8,19 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from "@mui/icons-material/Add";
 import data from "../../../assets/3024051.jpg";
 import Swal from "sweetalert2";
 import { useActivities } from "../../../hooks/useActivities";
 import { useEffect } from "react";
+import { ISubject } from "../../../interfaces/ISubject";
+import { Alert } from "../../../utils/Alert";
 
 export const SubjectBody = () => {
-  const {state:{subjects}, getSubject}= useActivities();
-useEffect(()=>{getSubject()},[]);
+  const {state:{subjects}, getSubject,setSubject}= useActivities();
+// eslint-disable-next-line react-hooks/exhaustive-deps
+useEffect(()=>{getSubject()},[subjects]);
 
 
 
@@ -72,7 +76,12 @@ useEffect(()=>{getSubject()},[]);
           }}
           onClick={async() => {
            const alert= await  fileName();
-           console.log(alert);
+            const set= await setSubject(alert.value as ISubject);
+            if(set){
+              Alert.showSuccess({message:"La asignatura se agregado correctamente."});
+            }else{
+              Alert.showError("Error, vuelva a intentar.");
+            }
           }}
           startIcon={<AddIcon />}
         >
@@ -139,10 +148,24 @@ useEffect(()=>{getSubject()},[]);
                     >
                       NRC
                     </TableCell>
+                    <TableCell
+                      sx={{
+                        backgroundColor: "#036A3F",
+                        border: "1px solid #fff",
+                        color: "#fff",
+                        fontFamily: "'Quattrocento', 'serif'",
+                        fontWeight: "bold",
+                        textAlign: "center",
+                      }}
+                      key={3}
+                      align="center"
+                    >
+                     <DeleteIcon/>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/*{subjects.map((row) => {
+                  {subjects.map((row) => {
                     return (
                       <TableRow>
                         <TableCell
@@ -165,9 +188,21 @@ useEffect(()=>{getSubject()},[]);
                         >
                           {row.nrc}
                         </TableCell>
+                        <TableCell
+                        key={4}
+                          sx={{
+                            fontFamily: "'Quattrocento', 'serif'",
+
+                            textAlign: "center",
+                          }}
+                        >
+                          <IconButton>
+                            <DeleteIcon color="error"/>
+                          </IconButton>
+                        </TableCell>
                       </TableRow>
                     );
-                  })}*/}
+                  })}
                 </TableBody>
               </Table>
             </>

@@ -46,9 +46,13 @@ namespace CustomerWebApi.Controllers
         public async Task<ActionResult> Delete(int IdSubject)
         {
             var teacher = await _teacherDbContext.Subjects.FindAsync(IdSubject);
+            if (teacher == null)
+            {
+                return Ok("ERROR");
+            }
             _teacherDbContext.Subjects.Remove(teacher);
             await _teacherDbContext.SaveChangesAsync();
-            return Ok();
+            return Ok("OK");
         }
     }
 }

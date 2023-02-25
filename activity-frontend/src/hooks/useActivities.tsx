@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { ISubject } from "../interfaces/ISubject";
 import { IActivitiesState } from "../store/slices/activities/activitiesSlice"
 import { activitiesThunks } from "../store/slices/activities/activitiesThunks";
 
@@ -7,8 +8,10 @@ export const useActivities = ()=>{
     const dispatch = useDispatch();
 
     const getSubject = ()=> dispatch(activitiesThunks.getSubject());
+    const setSubject = (value:ISubject)=> dispatch(activitiesThunks.setSubject(value));
     return{
         state,
-        getSubject
+        getSubject,
+        setSubject
     }
 }

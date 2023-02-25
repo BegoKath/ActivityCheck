@@ -1,17 +1,25 @@
-import { Dispatch } from "@reduxjs/toolkit"
+import { Dispatch } from "@reduxjs/toolkit";
 import { ISubject } from "../../../interfaces/ISubject";
-import { SubjectService } from "../../../services/SubjectService"
+import { SubjectService } from "../../../services/SubjectService";
 import { activitiesActions } from "./activitiesSlice";
 
+const getSubject = (): any => async (dispatch: Dispatch) => {
+  const subjects = await SubjectService.getSubjects();
 
-const getSubject= ():any => async (dispatch: Dispatch) => {
-    const subjects = await SubjectService.getSubjects();
-    console.log(subjects);
-    dispatch(activitiesActions.setSubjects(subjects as ISubject[]));
-}
+  dispatch(activitiesActions.setSubjects(subjects as ISubject[]));
+};
+const setSubject =
+  (values: ISubject): any =>
+  async () => {
+    const subject = await SubjectService.setSubject(values);
+    if (subject === "OK") {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-
-
-export const activitiesThunks ={
-getSubject
-}
+export const activitiesThunks = {
+  getSubject,
+  setSubject,
+};
