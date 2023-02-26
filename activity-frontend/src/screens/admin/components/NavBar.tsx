@@ -47,6 +47,7 @@ export const NavBar = () => {
     }else {
       closeSubjectBody();
       closeTeacherBody();
+      closeClassroomBody();
     }
   };
   const Item = ({ label, icon, keys }: itemList) => {
