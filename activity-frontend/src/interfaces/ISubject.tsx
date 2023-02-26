@@ -1,5 +1,5 @@
 export interface ISubject {
-    id:number;
+    idSubject:number;
     title:string;
     nrc:string;
 }

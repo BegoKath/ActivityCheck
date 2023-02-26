@@ -18,8 +18,19 @@ const setSubject =
       return false;
     }
   };
-
+const deleteSubject =
+  (idSubject: number): any =>
+  async () => {
+    const res = await SubjectService.deleteSubject(idSubject);
+    console.log(res);
+    if(res==="OK"){
+      return true;
+    }else{
+      return false;
+    }
+  };
 export const activitiesThunks = {
   getSubject,
   setSubject,
+  deleteSubject
 };

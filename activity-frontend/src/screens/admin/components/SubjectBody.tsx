@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import data from "../../../assets/3024051.jpg";
 import Swal from "sweetalert2";
@@ -18,15 +18,21 @@ import { ISubject } from "../../../interfaces/ISubject";
 import { Alert } from "../../../utils/Alert";
 
 export const SubjectBody = () => {
-  const {state:{subjects}, getSubject,setSubject}= useActivities();
-// eslint-disable-next-line react-hooks/exhaustive-deps
-useEffect(()=>{getSubject()},[subjects]);
-
-
+  const {
+    state: { subjects },
+    getSubject,
+    setSubject,
+    deleteSubject,
+  } = useActivities();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    getSubject();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subjects]);
 
   const fileName = async () => {
     return await Swal.fire({
-        title: "Ingrese una nueva Asignatura",
+      title: "Ingrese una nueva Asignatura",
       html:
         ' <div class="form-group">' +
         ' <label for="titleSubject">Titulo</label>' +
@@ -41,10 +47,10 @@ useEffect(()=>{getSubject()},[subjects]);
       confirmButtonText: "Guardar",
       showLoaderOnConfirm: true,
       preConfirm: () => {
-        const title = (document.getElementById("titleSubject") as HTMLInputElement)
-          .value;
-        const nrc = (document.getElementById("nrc") as HTMLInputElement)
-          .value;
+        const title = (
+          document.getElementById("titleSubject") as HTMLInputElement
+        ).value;
+        const nrc = (document.getElementById("nrc") as HTMLInputElement).value;
         if (title! && nrc!) {
           return new Promise(function (resolve) {
             resolve({ title, nrc });
@@ -53,7 +59,7 @@ useEffect(()=>{getSubject()},[subjects]);
       },
     });
   };
-  
+
   return (
     <div style={body}>
       <div
@@ -74,12 +80,14 @@ useEffect(()=>{getSubject()},[subjects]);
             color: "#fff",
             background: "#036A3F",
           }}
-          onClick={async() => {
-           const alert= await  fileName();
-            const set= await setSubject(alert.value as ISubject);
-            if(set){
-              Alert.showSuccess({message:"La asignatura se agregado correctamente."});
-            }else{
+          onClick={async () => {
+            const alert = await fileName();
+            const set = await setSubject(alert.value as ISubject);
+            if (set) {
+              Alert.showSuccess({
+                message: "La asignatura se agregado correctamente.",
+              });
+            } else {
               Alert.showError("Error, vuelva a intentar.");
             }
           }}
@@ -160,7 +168,7 @@ useEffect(()=>{getSubject()},[subjects]);
                       key={3}
                       align="center"
                     >
-                     <DeleteIcon/>
+                      <DeleteIcon />
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -169,7 +177,7 @@ useEffect(()=>{getSubject()},[subjects]);
                     return (
                       <TableRow>
                         <TableCell
-                        key={3}
+                          key={3}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -179,7 +187,7 @@ useEffect(()=>{getSubject()},[subjects]);
                           {row.title}
                         </TableCell>
                         <TableCell
-                        key={4}
+                          key={4}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -189,15 +197,26 @@ useEffect(()=>{getSubject()},[subjects]);
                           {row.nrc}
                         </TableCell>
                         <TableCell
-                        key={4}
+                          key={5}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
-
                             textAlign: "center",
                           }}
                         >
-                          <IconButton>
-                            <DeleteIcon color="error"/>
+                          <IconButton
+                            onClick={async () => {
+                              console.log(row.idSubject)
+                              const res = await deleteSubject(row.idSubject);
+                              if (res) {
+                                Alert.showSuccess({
+                                  message: "Eliminado con exito",
+                                });
+                              } else {
+                                Alert.showError("Error, vuelva a intentar.");
+                              }
+                            }}
+                          >
+                            <DeleteIcon color="error" />
                           </IconButton>
                         </TableCell>
                       </TableRow>
