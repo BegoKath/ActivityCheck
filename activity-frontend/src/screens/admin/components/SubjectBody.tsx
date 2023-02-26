@@ -205,7 +205,7 @@ export const SubjectBody = () => {
                         >
                           <IconButton
                             onClick={async () => {
-                              console.log(row.idSubject)
+                              
                               const res = await deleteSubject(row.idSubject);
                               if (res) {
                                 Alert.showSuccess({
