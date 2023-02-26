@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { IClassroom } from "../interfaces/IClassroom";
 import { ISubject } from "../interfaces/ISubject";
+import { ITime } from "../interfaces/ITime";
 import { IActivitiesState } from "../store/slices/activities/activitiesSlice";
 import { activitiesThunks } from "../store/slices/activities/activitiesThunks";
 
@@ -20,6 +21,11 @@ export const useActivities = () => {
     dispatch(activitiesThunks.setClassroom(value));
     const deleteClassroom = (idSubject: number) =>
     dispatch(activitiesThunks.deleteClassroom(idSubject));
+    const getTime = ()=> dispatch(activitiesThunks.getTime());
+    const setTime = (value: ITime) =>
+    dispatch(activitiesThunks.setTime(value));
+    const deleteTime = (idSubject: number) =>
+    dispatch(activitiesThunks.deleteTime(idSubject));
   return {
     state,
     getSubject,
@@ -27,6 +33,9 @@ export const useActivities = () => {
     deleteSubject,
     getClassroom,
     setClassroom,
-    deleteClassroom
+    deleteClassroom,
+    getTime,
+    setTime,
+    deleteTime
   };
 };

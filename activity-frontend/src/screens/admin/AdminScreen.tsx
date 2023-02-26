@@ -4,10 +4,11 @@ import { ClassroomBody } from "./components/ClassroomBody";
 import { NavBar } from "./components/NavBar";
 import { SubjectBody } from "./components/SubjectBody";
 import { TeacherBody } from "./components/TeacherBody";
+import { TimeBody } from "./components/TimeBody";
 
 export const AdminScreen = () => {
   const {
-    state: { navBarAdmin,subjectBody,teacherBody,classroomBody },
+    state: { navBarAdmin,subjectBody,teacherBody,classroomBody,timeBody },
   } = useApp();
   const BodyAdmin = ()=>{
     if(subjectBody){
@@ -16,6 +17,8 @@ export const AdminScreen = () => {
       return <TeacherBody key={"teacherBody"}/>;
     }else if(classroomBody){
       return <ClassroomBody key={"classroomBody"}/>
+    }else if(timeBody){
+      return <TimeBody key={"timeBody"}/>
     }else{
       return <></>
     }

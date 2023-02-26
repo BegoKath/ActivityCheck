@@ -7,6 +7,7 @@ export interface IAppState {
   teacherBody: boolean;
   classroomBody: boolean;
   scheduleBody:boolean;
+  timeBody:boolean;
 }
 const initialState: IAppState = {
   openLoginEmail: false,
@@ -14,7 +15,8 @@ const initialState: IAppState = {
   subjectBody: false,
   teacherBody: false,
   classroomBody: false,
-  scheduleBody:false
+  scheduleBody:true,
+  timeBody:false
 };
 export const appSlice = createSlice({
   name: "app",
@@ -37,7 +39,10 @@ export const appSlice = createSlice({
     },
     setScheduleBody:(state, action: PayloadAction<boolean>)=>{
       state.scheduleBody = action.payload;
-    }
+    },
+    setTimeBody:(state, action: PayloadAction<boolean>)=>{
+      state.timeBody = action.payload;
+    },
   },
 });
 

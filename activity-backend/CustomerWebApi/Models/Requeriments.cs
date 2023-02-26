@@ -11,4 +11,13 @@ namespace CustomerWebApi.Models
         public string email { get; set; }
         public string password { get; set; }
     }
+    public class ResponseSchedule
+    {
+        public int IdShedule { get; set; }
+        public string Day { get; set; }
+        public Time Time { get; set; }
+        public Classroom Classroom { get; set; }
+        public Subject Subject { get; set; }
+        public Teacher Teacher { get; set; }
+    }
 }

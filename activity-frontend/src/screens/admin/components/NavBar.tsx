@@ -4,6 +4,7 @@ import BookIcon from "@mui/icons-material/Book";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import AlarmIcon from '@mui/icons-material/Alarm';
 import { useApp } from "../../../hooks/useApp";
 
 interface itemList {
@@ -21,7 +22,11 @@ export const NavBar = () => {
     showTeacherBody,
     closeTeacherBody,
     showClassroomBody,
-    closeClassroomBody
+    closeClassroomBody,
+    showTimeBody,
+    closeTimeBody,
+    showScheduleBody,
+    closeScheduleBody,
   } = useApp();
 
   let openClose = () => {
@@ -35,19 +40,33 @@ export const NavBar = () => {
     if (label === "Asignaturas") {
       closeTeacherBody();
       closeClassroomBody();
+      closeTimeBody();
+      closeScheduleBody();
       showSubjectBody();
     } else if (label === "Docentes") {
       closeSubjectBody();
       closeClassroomBody();
+      closeTimeBody();
+      closeScheduleBody();
       showTeacherBody();
-    } else if(label==="Aulas"){
+    } else if (label === "Aulas") {
       closeSubjectBody();
       closeTeacherBody();
+      closeTimeBody();
+      closeScheduleBody();
       showClassroomBody();
-    }else {
+    } else if (label === "Horas") {
       closeSubjectBody();
       closeTeacherBody();
+      closeScheduleBody();
       closeClassroomBody();
+      showTimeBody();
+    } else {
+      closeSubjectBody();
+      closeTeacherBody();
+      closeTimeBody();
+      closeClassroomBody();
+      showScheduleBody();
     }
   };
   const Item = ({ label, icon, keys }: itemList) => {
@@ -93,11 +112,20 @@ export const NavBar = () => {
           icon={<BookIcon style={iconLi} />}
           keys={1}
         />
-        <Item label={"Docentes"} icon={<GroupsIcon style={iconLi} />} keys={2} />
+        <Item
+          label={"Docentes"}
+          icon={<GroupsIcon style={iconLi} />}
+          keys={2}
+        />
         <Item
           label={"Aulas"}
           icon={<MeetingRoomIcon style={iconLi} />}
           keys={3}
+        />
+        <Item
+          label={"Horas"}
+          icon={<AlarmIcon style={iconLi} />}
+          keys={4}
         />
       </ul>
     </nav>
