@@ -14,4 +14,9 @@ export class SubjectService{
         }
         return Api.post(url,body)
     }
+    static deleteSubject = async(idSubject:number):Promise<any> => {
+        const url =`http://localhost:29513/api/Subject/${idSubject}`;
+
+        return Api.delete(url);
+    }
 }
