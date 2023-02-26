@@ -1,18 +1,21 @@
 import { Container, Row } from "react-bootstrap";
 import { useApp } from "../../hooks/useApp";
+import { ClassroomBody } from "./components/ClassroomBody";
 import { NavBar } from "./components/NavBar";
 import { SubjectBody } from "./components/SubjectBody";
 import { TeacherBody } from "./components/TeacherBody";
 
 export const AdminScreen = () => {
   const {
-    state: { navBarAdmin,subjectBody,teacherBody },
+    state: { navBarAdmin,subjectBody,teacherBody,classroomBody },
   } = useApp();
   const BodyAdmin = ()=>{
     if(subjectBody){
       return <SubjectBody key={"subjectBody"}/>;
     }else if(teacherBody){
       return <TeacherBody key={"teacherBody"}/>;
+    }else if(classroomBody){
+      return <ClassroomBody key={"classroomBody"}/>
     }else{
       return <></>
     }

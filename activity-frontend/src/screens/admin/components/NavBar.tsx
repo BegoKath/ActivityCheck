@@ -20,6 +20,8 @@ export const NavBar = () => {
     closeSubjectBody,
     showTeacherBody,
     closeTeacherBody,
+    showClassroomBody,
+    closeClassroomBody
   } = useApp();
 
   let openClose = () => {
@@ -32,11 +34,17 @@ export const NavBar = () => {
   const onChangeBody = (label: string) => {
     if (label === "Asignaturas") {
       closeTeacherBody();
+      closeClassroomBody();
       showSubjectBody();
     } else if (label === "Docentes") {
       closeSubjectBody();
+      closeClassroomBody();
       showTeacherBody();
-    } else {
+    } else if(label==="Aulas"){
+      closeSubjectBody();
+      closeTeacherBody();
+      showClassroomBody();
+    }else {
       closeSubjectBody();
       closeTeacherBody();
     }
