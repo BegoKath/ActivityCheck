@@ -30,6 +30,7 @@ namespace CustomerWebApi
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Classroom> Classrooms { get; set; }
-
+        public DbSet<Time> Times { get; set; }
+        public DbSet<Schedule> Schedules { get; set; }
     }
 }
