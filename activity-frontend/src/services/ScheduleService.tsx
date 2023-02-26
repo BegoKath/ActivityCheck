@@ -9,7 +9,6 @@ export class ScheduleService{
     static setSchedule= async(values:ISchedule):Promise<any> =>{
         const url="http://localhost:29513/api/Schedule";
         const body={
-            IdSchedule:values.idSchedule,
             Day:values.day,
             IdTime:values.time.idTime,
             IdClassroom:values.classroom.idClassroom,

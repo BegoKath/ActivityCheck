@@ -107,7 +107,6 @@ const deleteTime =
     (idClassroom: number): any =>
     async () => {
       const res = await ScheduleService.deleteSchedule(idClassroom);
-  
       if (res === "OK") {
         return true;
       } else {

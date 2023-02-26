@@ -100,7 +100,7 @@ export const ScheduleDialog = () => {
         classroom:classroom,
         time:time,
         day:day,
-        idSchedule:0
+        idShedule:0
     });
     if(res){
         closeDialog();
@@ -110,7 +110,6 @@ export const ScheduleDialog = () => {
         closeDialog();
         await Alert.showError("Error: Vuelva a intentar");
     }
-
   }
   return (
     <Dialog open={openDialogSchedule} onClose={closeDialog}>
@@ -127,6 +126,7 @@ export const ScheduleDialog = () => {
             value={day}
             onChange={handleChangeDays}
           >
+            <option selected>Seleccione...</option>
             {days.map((e) => {
               return (
                 <option value={e}>

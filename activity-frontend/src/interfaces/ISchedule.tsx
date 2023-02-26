@@ -4,7 +4,7 @@ import { ITeacher } from "./ITeacher";
 import { ITime } from "./ITime";
 
 export interface ISchedule {
-  idSchedule: number;
+  idShedule: number;
   day: string;
   time: ITime;
   classroom: IClassroom;

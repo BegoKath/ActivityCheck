@@ -42,14 +42,7 @@ export const ScheduleBody = ()=>{
               }}
               onClick={async () => {
                  showDialogSchedule();
-                /*const set = await setSchedule(alert.value as ISchedule);
-                if (set) {
-                  Alert.showSuccess({
-                    message: "La asignatura se agregado correctamente.",
-                  });
-                } else {
-                  Alert.showError("Error, vuelva a intentar.");
-                }*/
+                
               }}
               startIcon={<AddIcon />}
             >
@@ -237,7 +230,8 @@ export const ScheduleBody = ()=>{
                             >
                               <IconButton
                                 onClick={async () => {
-                                  const res = await deleteSchedule(row.idSchedule);
+                                  
+                                  const res = await deleteSchedule(row.idShedule);
                                   if (res) {
                                     Alert.showSuccess({
                                       message: "Eliminado con exito",
