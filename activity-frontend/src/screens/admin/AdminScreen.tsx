@@ -2,6 +2,7 @@ import { Container, Row } from "react-bootstrap";
 import { useApp } from "../../hooks/useApp";
 import { ClassroomBody } from "./components/ClassroomBody";
 import { NavBar } from "./components/NavBar";
+import { ScheduleBody } from "./components/ScheduleBody";
 import { SubjectBody } from "./components/SubjectBody";
 import { TeacherBody } from "./components/TeacherBody";
 import { TimeBody } from "./components/TimeBody";
@@ -20,7 +21,7 @@ export const AdminScreen = () => {
     }else if(timeBody){
       return <TimeBody key={"timeBody"}/>
     }else{
-      return <></>
+      return <ScheduleBody key={ "scheduleBody"}/>
     }
   }
   return (
