@@ -13,9 +13,14 @@ export class TeacherService {
             PasswordTeacher:values.passwordTeacher,
             IdentityNumber:values.identityNumber,
             Names:values.names,
-            LastNames:values.surName,
+            Surname:values.surname,
             FaceId:"xx"
         }
         return Api.post(url,body)
+    }
+    static deleteTeacher = async(idTeacher:number):Promise<any> => {
+        const url =`http://localhost:29513/api/Teacher/${idTeacher}`;
+
+        return Api.delete(url);
     }
 }

@@ -17,7 +17,7 @@ export const RegisterScreen = () => {
     passwordTeacher: "",
     identityNumber: "",
     names: "",
-    surName: "",
+    surname: "",
     faceid: "",
   });
   const handleChange =
@@ -87,9 +87,9 @@ export const RegisterScreen = () => {
             required
             style={{ width: "90%", margin: "20px" }}
             label={"Apellidos"}
-            value={values.surName}
+            value={values.surname}
             variant="standard"
-            onChange={handleChange("surName")}
+            onChange={handleChange("surname")}
             InputProps={{
               style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
             }} // font size of input text

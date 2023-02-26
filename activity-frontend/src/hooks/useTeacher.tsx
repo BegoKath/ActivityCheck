@@ -9,9 +9,10 @@ export const useTeacher =()=>{
 
     const getTeachers =()=> dispatch(teacherThunks.getTeachers());
     const setTeacher =(values:ITeacher)=> dispatch(teacherThunks.setTeacher(values));
-    
+    const deleteTeacher = (idSubject: number) =>
+    dispatch(teacherThunks.deleteTeacher(idSubject));
     return {
         state,
-        getTeachers,setTeacher
+        getTeachers,setTeacher,deleteTeacher
     }
 };

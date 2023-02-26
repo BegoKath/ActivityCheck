@@ -30,7 +30,7 @@ export const SubjectBody = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subjects]);
 
-  const fileName = async () => {
+  const newSubject = async () => {
     return await Swal.fire({
       title: "Ingrese una nueva Asignatura",
       html:
@@ -81,7 +81,7 @@ export const SubjectBody = () => {
             background: "#036A3F",
           }}
           onClick={async () => {
-            const alert = await fileName();
+            const alert = await newSubject();
             const set = await setSubject(alert.value as ISubject);
             if (set) {
               Alert.showSuccess({

@@ -23,7 +23,7 @@ namespace CustomerWebApi.Models
         [Column("TEACHER_NAMES")]
         public string Names { get; set; }
         [Column("TEACHER_LASTNAMES")]
-        public string LastNames { get; set; }
+        public string Surname { get; set; }
         [Column("TEACHER_FACEID")]
         public string FaceId { get; set; }
 

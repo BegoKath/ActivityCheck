@@ -4,6 +4,6 @@ export interface ITeacher{
     passwordTeacher:string;
     identityNumber:string;
     names:string;
-    surName:string;
+    surname:string;
     faceid:string;
 }
