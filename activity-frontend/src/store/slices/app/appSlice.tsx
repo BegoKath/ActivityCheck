@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IAppState {
   openLoginEmail: boolean;
+  openDialogSchedule: boolean;
   navBarAdmin: boolean;
   subjectBody: boolean;
   teacherBody: boolean;
@@ -11,6 +12,7 @@ export interface IAppState {
 }
 const initialState: IAppState = {
   openLoginEmail: false,
+  openDialogSchedule:false,
   navBarAdmin: true,
   subjectBody: false,
   teacherBody: false,
@@ -24,6 +26,9 @@ export const appSlice = createSlice({
   reducers: {
     showLoginEmail: (state, action: PayloadAction<boolean>) => {
       state.openLoginEmail = action.payload;
+    },
+    setDialogSchedule: (state, action: PayloadAction<boolean>) => {
+      state.openDialogSchedule = action.payload;
     },
     setNavBarAdmin: (state, action: PayloadAction<boolean>) => {
       state.navBarAdmin = action.payload;

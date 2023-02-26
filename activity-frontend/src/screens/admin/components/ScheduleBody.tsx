@@ -1,53 +1,24 @@
 import { useEffect } from "react";
-import Swal from "sweetalert2";
 import { useActivities } from "../../../hooks/useActivities";
-import { ISchedule } from "../../../interfaces/ISchedule";
 import { Alert } from "../../../utils/Alert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import data from "../../../assets/3024051.jpg";
 import { Button, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { useApp } from "../../../hooks/useApp";
+import { ScheduleDialog } from "./ScheduleDialog";
 
 export const ScheduleBody = ()=>{
     const {
         state: { schedules },
-        getSchedule,setSchedule,deleteSchedule
+        getSchedule,deleteSchedule
       } = useActivities();
+      const {showDialogSchedule} = useApp();
       // eslint-disable-next-line react-hooks/exhaustive-deps
       useEffect(() => {
         getSchedule();
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [schedules]);
-    
-      const newSubject = async () => {
-        return await Swal.fire({
-          title: "Ingrese una nueva Aula",
-          html:
-            ' <div class="form-group">' +
-            ' <label for="field">Bloque</label>' +
-            '<input type="text" class="form-control" id="field" placeholder="Bloque">' +
-            "</div>" +
-            ' <div class="form-group">' +
-            ' <label for="numClassroom">Número de aula</label>' +
-            '<input type="text" class="form-control" id="numClassroom" placeholder="Número de aula" >' +
-            "</div>",
-          showCancelButton: true,
-          cancelButtonText: "Cancelar",
-          confirmButtonText: "Guardar",
-          showLoaderOnConfirm: true,
-          preConfirm: () => {
-            const fieldClassroom = (
-              document.getElementById("field") as HTMLInputElement
-            ).value;
-            const numClassroom = (document.getElementById("numClassroom") as HTMLInputElement).value;
-            if (fieldClassroom! && numClassroom!) {
-              return new Promise(function (resolve) {
-                resolve({ fieldClassroom, numClassroom });
-              });
-            }
-          },
-        });
-      };
+      }, [schedules]);     
     
       return (
         <div style={body}>
@@ -70,15 +41,15 @@ export const ScheduleBody = ()=>{
                 background: "#036A3F",
               }}
               onClick={async () => {
-                const alert = await newSubject();
-                const set = await setSchedule(alert.value as ISchedule);
+                 showDialogSchedule();
+                /*const set = await setSchedule(alert.value as ISchedule);
                 if (set) {
                   Alert.showSuccess({
                     message: "La asignatura se agregado correctamente.",
                   });
                 } else {
                   Alert.showError("Error, vuelva a intentar.");
-                }
+                }*/
               }}
               startIcon={<AddIcon />}
             >
@@ -208,7 +179,7 @@ export const ScheduleBody = ()=>{
                         return (
                           <TableRow>
                              <TableCell
-                              key={3}
+                              key={8}
                               sx={{
                                 fontFamily: "'Quattrocento', 'serif'",
     
@@ -218,7 +189,7 @@ export const ScheduleBody = ()=>{
                               {row.time.startTime+"-"+row.time.endTime}
                             </TableCell>
                             <TableCell
-                              key={3}
+                              key={7}
                               sx={{
                                 fontFamily: "'Quattrocento', 'serif'",
     
@@ -228,7 +199,7 @@ export const ScheduleBody = ()=>{
                               {row.subject.title}
                             </TableCell>
                             <TableCell
-                              key={3}
+                              key={6}
                               sx={{
                                 fontFamily: "'Quattrocento', 'serif'",
     
@@ -288,6 +259,7 @@ export const ScheduleBody = ()=>{
               )}
             </TableContainer>
           </div>
+          <ScheduleDialog/>
         </div>
       );
     };

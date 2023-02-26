@@ -19,6 +19,8 @@ export const useApp =()=>{
     const closeScheduleBody = ()=> dispatch(appActions.setScheduleBody(false));
     const showTimeBody = ()=> dispatch(appActions.setTimeBody(true));
     const closeTimeBody = ()=> dispatch(appActions.setTimeBody(false));
+    const showDialogSchedule =()=> dispatch(appActions.setDialogSchedule(true));
+    const closeDialogSchedule = ()=> dispatch(appActions.setDialogSchedule(false));
     return{
         state,
         showDialogLogin,
@@ -34,6 +36,8 @@ export const useApp =()=>{
         showScheduleBody,
         closeScheduleBody,
         showTimeBody,
-        closeTimeBody
+        closeTimeBody,
+        showDialogSchedule,
+        closeDialogSchedule
     }
 }
