@@ -5,11 +5,12 @@ import logo from "../../assets/Logo_ESPE.png";
 import FaceIcon from "@mui/icons-material/Face";
 import { ITeacher } from "../../interfaces/ITeacher";
 import { useTeacher } from "../../hooks/useTeacher";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
+import { Alert } from "../../utils/Alert";
 
 export const RegisterScreen = () => {
-  const {getTeachers,setTeacher}= useTeacher();
+  const { getTeachers, setTeacher } = useTeacher();
   const navigate = useNavigate();
   const [values, setValues] = useState<ITeacher>({
     idTeacher: 0,
@@ -38,12 +39,22 @@ export const RegisterScreen = () => {
             alignItems: "center",
           }}
         >
-          <div style={{display:"flex", flexDirection:"row", justifyContent:"start", width:"100%"}}>
-          <IconButton sx={{ fontSize: 90 , color:"white"}} onClick={()=>navigate('/login')}>
-            <ArrowBackIcon />
-          </IconButton>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              width: "100%",
+            }}
+          >
+            <IconButton
+              sx={{ fontSize: 90, color: "white" }}
+              onClick={() => navigate("/login")}
+            >
+              <ArrowBackIcon />
+            </IconButton>
           </div>
-          
+
           <Row className="text-center text-white " style={{ fontSize: "35px" }}>
             Sistema de control de actividades
           </Row>
@@ -179,9 +190,16 @@ export const RegisterScreen = () => {
                 color: "white",
                 background: "#036A3F",
               }}
-              onClick={() => {
-                console.log(values);
-                setTeacher(values);                
+              onClick={async () => {
+                const res = await setTeacher(values);
+                if (res) {
+                  await Alert.showSuccess({
+                    message: "Se ha creado correctamente.",
+                  });
+                  navigate("/login");
+                } else {
+                  await Alert.showError("Error:Vuelva a intentar");
+                }
               }}
             >
               Crear Cuenta

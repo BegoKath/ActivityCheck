@@ -66,7 +66,7 @@ export const LoginScreen = () => {
               background: "#fff",
             }}
             onClick={() => {
-              navigate("/");
+              navigate("/register");
             }}
           >
             Crear Cuenta

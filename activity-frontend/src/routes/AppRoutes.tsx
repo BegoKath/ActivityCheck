@@ -6,7 +6,8 @@ import { RegisterScreen } from '../screens/register/RegisterScreen';
 export const AppRoutes = ()=>{
     return(
         <Routes>
-            <Route path='/' element={<RegisterScreen/>}/>
+            <Route path='/' element={<ActivitiesScreen/>}/>
+            <Route  path='/register' element={<RegisterScreen/>}/>
             <Route path='/login' element={<LoginScreen/>}/>
             <Route path='/activities' element={<ActivitiesScreen/>}/>
             <Route path='/admin' element= {<AdminScreen/>}/>

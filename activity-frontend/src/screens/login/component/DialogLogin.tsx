@@ -21,11 +21,12 @@ export const DialogLogin = () => {
     state: { openLoginEmail },
     closeDialogLogin,
   } = useApp();
-  const {loginWithEmail} = useAuth();
+  const { loginWithEmail } = useAuth();
   const [email, useEmail] = useState("");
   const [password, usePassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const navigate= useNavigate();
+  const navigate = useNavigate();
+  var CryptoJS = require("crypto-js");
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -34,13 +35,13 @@ export const DialogLogin = () => {
   ) => {
     event.preventDefault();
   };
-  const closeDialog =()=> {
+  const closeDialog = () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEmail("");
     // eslint-disable-next-line react-hooks/rules-of-hooks
     usePassword("");
     closeDialogLogin();
-  }
+  };
 
   const handleChange =
     (value: string) => (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,25 +54,38 @@ export const DialogLogin = () => {
         usePassword(event.target.value);
     };
 
-  const login = async ()=>{
-   const res= await loginWithEmail(email,password);
-    if(res==="OK"){      
+  const login = async () => {
+    /*var encrypted = CryptoJS.AES.encrypt(email, "Egresados");
+    var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+    console.log(encrypted);
+    console.log(decrypted);*/
+    const res = await loginWithEmail(email, password);
+
+    if (res === "OK") {
       closeDialog();
-      await Alert.showSuccess({message:"Inicio de sesión con exito"});
-      navigate("/activities")
-    }else{
-      if(res=== "Password"){
+      await Alert.showSuccess({ message: "Inicio de sesión con exito" });
+      navigate("/activities");
+    } else {
+      if (res === "Password") {
         closeDialog();
-        await Alert.showError("Contraseña incorrecta. Vuelva a intentar.")
-      }else if(res==="Error"){
+        await Alert.showError("Contraseña incorrecta. Vuelva a intentar.");
+      } else if (res === "Error") {
         closeDialog();
-        await Alert.showError("El correo electrónico que ingresaste no está conectado a una cuenta. Registrate e inicia sesión.");
-      }else{
+        await Alert.showError(
+          "El correo electrónico que ingresaste no está conectado a una cuenta. Registrate e inicia sesión."
+        );
+      } else if (res === "ADMIN") {
+        closeDialog();
+        await Alert.showSuccess({
+          message: "Inicio de sesiòn como administrador.",
+        });
+        navigate("/admin");
+      } else {
         closeDialog();
         await Alert.showError("Error: 404");
       }
     }
-  }
+  };
   return (
     <Dialog open={openLoginEmail} onClose={closeDialog}>
       <DialogTitle style={{ textAlign: "center" }}>Iniciar Sesión</DialogTitle>
@@ -93,7 +107,6 @@ export const DialogLogin = () => {
         />
         <TextField
           required
-          
           style={{ width: "90%", margin: "20px" }}
           label={"Contraseña"}
           value={password}
