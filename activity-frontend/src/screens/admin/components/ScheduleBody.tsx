@@ -26,13 +26,14 @@ export const ScheduleBody = () => {
     deleteSchedule, getTime,
     getSubject,
     getClassroom,
+    getScheduleDay
   } = useActivities();
   const { showDialogSchedule } = useApp();
   const [day, setDay]= useState(dias[today.getDay()]);
   
   useEffect(() => {  
     if(day==="LUNES"||day==="MARTES"||day==="MIERCOLES"||day==="JUEVES"||day==="VIERNES"){
-
+      getScheduleDay(day);
     }else{
       getSchedule();      
     }  

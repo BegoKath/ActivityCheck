@@ -17,21 +17,22 @@ export const useActivities = () => {
     dispatch(activitiesThunks.setSubject(value));
   const deleteSubject = (idSubject: number) =>
     dispatch(activitiesThunks.deleteSubject(idSubject));
-    const getClassroom = ()=> dispatch(activitiesThunks.getClassrooms());
-    const setClassroom = (value: IClassroom) =>
+  const getClassroom = () => dispatch(activitiesThunks.getClassrooms());
+  const setClassroom = (value: IClassroom) =>
     dispatch(activitiesThunks.setClassroom(value));
-    const deleteClassroom = (idSubject: number) =>
+  const deleteClassroom = (idSubject: number) =>
     dispatch(activitiesThunks.deleteClassroom(idSubject));
-    const getTime = ()=> dispatch(activitiesThunks.getTime());
-    const setTime = (value: ITime) =>
-    dispatch(activitiesThunks.setTime(value));
-    const deleteTime = (idSubject: number) =>
+  const getTime = () => dispatch(activitiesThunks.getTime());
+  const setTime = (value: ITime) => dispatch(activitiesThunks.setTime(value));
+  const deleteTime = (idSubject: number) =>
     dispatch(activitiesThunks.deleteTime(idSubject));
-    const getSchedule = ()=> dispatch(activitiesThunks.getSchedule());
-    const setSchedule = (value: ISchedule) =>
+  const getSchedule = () => dispatch(activitiesThunks.getSchedule());
+  const setSchedule = (value: ISchedule) =>
     dispatch(activitiesThunks.setSchedule(value));
-    const deleteSchedule = (idSubject: number) =>
+  const deleteSchedule = (idSubject: number) =>
     dispatch(activitiesThunks.deleteSchedule(idSubject));
+  const getScheduleDay = (value: string) =>
+    dispatch(activitiesThunks.getScheduleDay(value));
   return {
     state,
     getSubject,
@@ -45,6 +46,7 @@ export const useActivities = () => {
     deleteTime,
     getSchedule,
     setSchedule,
-    deleteSchedule
+    deleteSchedule,
+    getScheduleDay,
   };
 };

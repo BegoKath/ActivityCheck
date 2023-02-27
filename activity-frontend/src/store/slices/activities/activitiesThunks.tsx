@@ -37,7 +37,6 @@ const deleteSubject =
   };
 const getClassrooms = (): any => async (dispatch: Dispatch) => {
   const classrooms = await ClassroomService.getClassrooms();
-
   dispatch(activitiesActions.setClassroom(classrooms as IClassroom[]));
 };
 const setClassroom =
@@ -93,6 +92,11 @@ const deleteTime =
   
     dispatch(activitiesActions.setSchedules(schedules as ISchedule[]));
   };
+  const getScheduleDay = (day:string): any => async (dispatch: Dispatch) => {
+    const schedules = await ScheduleService.getScheduleDay(day);
+  
+    dispatch(activitiesActions.setSchedules(schedules as ISchedule[]));
+  };
   const setSchedule =
     (values: ISchedule): any =>
     async () => {
@@ -125,5 +129,5 @@ export const activitiesThunks = {
   deleteTime,
   getSchedule,
   setSchedule,
-  deleteSchedule
+  deleteSchedule,getScheduleDay
 };
