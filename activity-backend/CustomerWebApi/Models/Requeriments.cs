@@ -20,4 +20,8 @@ namespace CustomerWebApi.Models
         public Subject Subject { get; set; }
         public Teacher Teacher { get; set; }
     }
+    public class RequerimentsGetSchedules
+    {
+        public string day { get; set; }
+    }
 }

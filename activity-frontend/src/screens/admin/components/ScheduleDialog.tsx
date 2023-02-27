@@ -1,4 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  FormControl,
+} from "@mui/material";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useActivities } from "../../../hooks/useActivities";
 import { useApp } from "../../../hooks/useApp";
@@ -8,18 +15,14 @@ import { ISubject } from "../../../interfaces/ISubject";
 import { ITeacher } from "../../../interfaces/ITeacher";
 import { ITime } from "../../../interfaces/ITime";
 import { Alert } from "../../../utils/Alert";
-const days=[
-"LUNES","MARTES","MIERCOLES","JUEVES","VIERNES"
-];
+const days = ["LUNES", "MARTES", "MIERCOLES", "JUEVES", "VIERNES"];
 export const ScheduleDialog = () => {
-
   const {
     state: { openDialogSchedule },
     closeDialogSchedule,
   } = useApp();
   const {
-    state: { times, classrooms, subjects },
-    getTime,getSubject,getClassroom, setSchedule
+    state: { times, classrooms, subjects },setSchedule
   } = useActivities();
   const {
     state: { teachers },
@@ -39,30 +42,24 @@ export const ScheduleDialog = () => {
     startTime: "",
     endTime: "",
   });
-  const [subject,setSubject]= useState<ISubject>({
-    idSubject:0,
-    title:"",
-    nrc:""
+  const [subject, setSubject] = useState<ISubject>({
+    idSubject: 0,
+    title: "",
+    nrc: "",
   });
-  const [classroom,setClassroom]= useState<IClassroom>({
-    idClassroom:0,
-    numClassroom:"",
-    fieldClassroom:""
+  const [classroom, setClassroom] = useState<IClassroom>({
+    idClassroom: 0,
+    numClassroom: "",
+    fieldClassroom: "",
   });
-  const [day, setDay]= useState("");
+  const [day, setDay] = useState("default");
   const closeDialog = () => {
     closeDialogSchedule();
   };
-  useEffect(() => {
-    getTeachers();
-    getTime();   
+  useEffect( () => {
+    getTeachers();   
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [teachers]);
-  useEffect(() => {
-    getSubject();
-    getClassroom();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subjects]);
+  }, []);
   const handleChangeDays = (event: ChangeEvent<HTMLSelectElement>) => {
     setDay(event.target.value);
   };
@@ -81,41 +78,45 @@ export const ScheduleDialog = () => {
     }
   };
   const handleChangeSubject = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = subjects.find((v) => v.idSubject === Number(event.target.value));
+    const value = subjects.find(
+      (v) => v.idSubject === Number(event.target.value)
+    );
     if (value !== undefined) {
       setSubject(value);
     }
   };
   const handleChangeClassroom = (event: ChangeEvent<HTMLSelectElement>) => {
-    const value = classrooms.find((v) => v.idClassroom === Number(event.target.value));
+    const value = classrooms.find(
+      (v) => v.idClassroom === Number(event.target.value)
+    );
     if (value !== undefined) {
       setClassroom(value);
     }
   };
 
-  const newSchedule = async ()=>{
-    const res= await setSchedule({
-        teacher:teacher,
-        subject:subject,
-        classroom:classroom,
-        time:time,
-        day:day,
-        idShedule:0
+  const newSchedule = async () => {
+    const res = await setSchedule({
+      teacher: teacher,
+      subject: subject,
+      classroom: classroom,
+      time: time,
+      day: day,
+      idShedule: 0,
     });
-    if(res){
-        closeDialog();
-        await Alert.showSuccess({message:"Fue agregado con éxito"});
-
-    }else{
-        closeDialog();
-        await Alert.showError("Error: Vuelva a intentar");
+    if (res) {
+      closeDialog();
+      await Alert.showSuccess({ message: "Fue agregado con éxito" });
+    } else {
+      closeDialog();
+      await Alert.showError("Error: Vuelva a intentar");
     }
-  }
+  };
   return (
+    (teachers.length===0)?<></>:
     <Dialog open={openDialogSchedule} onClose={closeDialog}>
       <DialogTitle style={{ textAlign: "center" }}>Horario Nuevo</DialogTitle>
-      <DialogContent style={{display:"flex", flexDirection:"column"}}>
-      <FormControl required sx={{ m: 1, minWidth: 200 }}>
+      <DialogContent style={{ display: "flex", flexDirection: "column" }}>
+        <FormControl required sx={{ m: 1, minWidth: 200 }}>
           <label htmlFor="daySelect" className="form-label">
             Día
           </label>
@@ -126,13 +127,9 @@ export const ScheduleDialog = () => {
             value={day}
             onChange={handleChangeDays}
           >
-            <option selected>Seleccione...</option>
+            <option value={"default"} disabled>Seleccione...</option>
             {days.map((e) => {
-              return (
-                <option value={e}>
-                  {e}
-                </option>
-              );
+              return <option value={e}>{e}</option>;
             })}
           </select>
         </FormControl>
@@ -147,7 +144,7 @@ export const ScheduleDialog = () => {
             value={time.idTime}
             onChange={handleChangeTime}
           >
-             <option selected>Seleccione...</option>
+           <option value={0} disabled>Seleccione...</option>
             {times.map((e) => {
               return (
                 <option value={e.idTime}>
@@ -168,13 +165,9 @@ export const ScheduleDialog = () => {
             value={subject.idSubject}
             onChange={handleChangeSubject}
           >
-             <option selected>Seleccione...</option>
+          <option value={0} disabled>Seleccione...</option>
             {subjects.map((e) => {
-              return (
-                <option value={e.idSubject}>
-                  {e.title}
-                </option>
-              );
+              return <option value={e.idSubject}>{e.title}</option>;
             })}
           </select>
         </FormControl>
@@ -182,7 +175,12 @@ export const ScheduleDialog = () => {
           <label htmlFor="subjectSelect" className="form-label">
             NRC
           </label>
-          <input  className="form-control" type="text" value={subject.nrc} readOnly></input>
+          <input
+            className="form-control"
+            type="text"
+            value={subject.nrc}
+            readOnly
+          ></input>
         </FormControl>
         <FormControl required sx={{ m: 1, minWidth: 200 }}>
           <label htmlFor="teacherSelect" className="form-label">
@@ -195,12 +193,10 @@ export const ScheduleDialog = () => {
             value={teacher.idTeacher}
             onChange={handleChangeTeacher}
           >
-             <option selected>Seleccione...</option>
+            <option value={0} disabled>Seleccione...</option>
             {teachers.map((e) => {
               return (
-                <option value={e.idTeacher}>
-                  {e.names + " " + e.surname}
-                </option>
+                <option value={e.idTeacher}>{e.names + " " + e.surname}</option>
               );
             })}
           </select>
@@ -216,7 +212,7 @@ export const ScheduleDialog = () => {
             value={classroom.idClassroom}
             onChange={handleChangeClassroom}
           >
-             <option selected>Seleccione...</option>
+        <option value={0} disabled>Seleccione...</option>
             {classrooms.map((e) => {
               return (
                 <option value={e.idClassroom}>
