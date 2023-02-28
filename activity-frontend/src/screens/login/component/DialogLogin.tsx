@@ -55,10 +55,8 @@ export const DialogLogin = () => {
     };
 
   const login = async () => {
-    /*var encrypted = CryptoJS.AES.encrypt(email, "Egresados");
-    var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
-    console.log(encrypted);
-    console.log(decrypted);*/
+    var encrypted = CryptoJS.AES.encrypt(email, "Egresados");
+  
     const res = await loginWithEmail(email, password);
 
     if (res === "OK") {
@@ -66,10 +64,10 @@ export const DialogLogin = () => {
       await Alert.showSuccess({ message: "Inicio de sesión con exito" });
       navigate("/activities");
     } else {
-      if (res === "Password") {
+      if (res === "PASSWORD") {
         closeDialog();
         await Alert.showError("Contraseña incorrecta. Vuelva a intentar.");
-      } else if (res === "Error") {
+      } else if (res === "ERROR") {
         closeDialog();
         await Alert.showError(
           "El correo electrónico que ingresaste no está conectado a una cuenta. Registrate e inicia sesión."
@@ -79,7 +77,7 @@ export const DialogLogin = () => {
         await Alert.showSuccess({
           message: "Inicio de sesiòn como administrador.",
         });
-        navigate("/admin");
+        navigate(`/admin?code=${encrypted.toString()}`);
       } else {
         closeDialog();
         await Alert.showError("Error: 404");
