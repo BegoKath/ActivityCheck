@@ -127,7 +127,7 @@ export const SubjectBody = () => {
                 }}
               >
                 <TableHead>
-                  <TableRow>
+                  <TableRow key={"row1"}>
                     <TableCell
                       sx={{
                         backgroundColor: "#036A3F",
@@ -175,9 +175,9 @@ export const SubjectBody = () => {
                 <TableBody>
                   {subjects.map((row) => {
                     return (
-                      <TableRow>
+                      <TableRow key={row.idSubject+"row"}>
                         <TableCell
-                          key={3}
+                          key={row.title}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -187,7 +187,7 @@ export const SubjectBody = () => {
                           {row.title}
                         </TableCell>
                         <TableCell
-                          key={4}
+                          key={row.nrc}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -197,7 +197,7 @@ export const SubjectBody = () => {
                           {row.nrc}
                         </TableCell>
                         <TableCell
-                          key={5}
+                          key={row.idSubject}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
                             textAlign: "center",

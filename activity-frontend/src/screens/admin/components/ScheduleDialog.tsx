@@ -129,7 +129,7 @@ export const ScheduleDialog = () => {
           >
             <option value={"default"} disabled>Seleccione...</option>
             {days.map((e) => {
-              return <option value={e}>{e}</option>;
+              return <option value={e} key={e}>{e}</option>;
             })}
           </select>
         </FormControl>
@@ -147,7 +147,7 @@ export const ScheduleDialog = () => {
            <option value={0} disabled>Seleccione...</option>
             {times.map((e) => {
               return (
-                <option value={e.idTime}>
+                <option value={e.idTime} key={e.idTime}>
                   {e.startTime + " - " + e.endTime}
                 </option>
               );
@@ -167,7 +167,7 @@ export const ScheduleDialog = () => {
           >
           <option value={0} disabled>Seleccione...</option>
             {subjects.map((e) => {
-              return <option value={e.idSubject}>{e.title}</option>;
+              return <option value={e.idSubject} key={e.idSubject}>{e.title}</option>;
             })}
           </select>
         </FormControl>
@@ -196,7 +196,7 @@ export const ScheduleDialog = () => {
             <option value={0} disabled>Seleccione...</option>
             {teachers.map((e) => {
               return (
-                <option value={e.idTeacher}>{e.names + " " + e.surname}</option>
+                <option value={e.idTeacher} key={e.idTeacher}>{e.names + " " + e.surname}</option>
               );
             })}
           </select>
@@ -215,7 +215,7 @@ export const ScheduleDialog = () => {
         <option value={0} disabled>Seleccione...</option>
             {classrooms.map((e) => {
               return (
-                <option value={e.idClassroom}>
+                <option value={e.idClassroom} key={e.idClassroom}>
                   {e.fieldClassroom + " - " + e.numClassroom}
                 </option>
               );

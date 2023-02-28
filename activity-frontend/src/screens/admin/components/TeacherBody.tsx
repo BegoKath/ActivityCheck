@@ -129,9 +129,9 @@ export const TeacherBody = () => {
                 <TableBody>
                   {teachers.map((row) => {
                     return (
-                      <TableRow>
+                      <TableRow key={row.idTeacher+"row"}>
                         <TableCell
-                          key={7}
+                          key={row.idTeacher+"names"}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -141,7 +141,7 @@ export const TeacherBody = () => {
                           {row.names+" "+row.surname}
                         </TableCell>
                         <TableCell
-                          key={4}
+                          key={row.idTeacher+"email"}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -151,7 +151,7 @@ export const TeacherBody = () => {
                           {row.emailTeacher}
                         </TableCell>
                         <TableCell
-                          key={6}
+                          key={row.idTeacher+"id"}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
 
@@ -161,7 +161,7 @@ export const TeacherBody = () => {
                           {row.identityNumber}
                         </TableCell>
                         <TableCell
-                          key={5}
+                          key={row.idTeacher+"button"}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
                             textAlign: "center",

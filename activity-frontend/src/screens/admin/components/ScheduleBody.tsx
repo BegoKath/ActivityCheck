@@ -266,7 +266,7 @@ export const ScheduleBody = () => {
                 <TableBody>
                   {schedules.map((row) => {
                     return (
-                      <TableRow>
+                      <TableRow key={row.idShedule+"row"}>
                         <TableCell
                           key={8}
                           sx={{

@@ -164,7 +164,7 @@ export const ClassroomBody = ()=>{
                     <TableBody>
                       {classrooms.map((row) => {
                         return (
-                          <TableRow>
+                          <TableRow key={row.idClassroom+"row"}>
                             <TableCell
                               key={3}
                               sx={{

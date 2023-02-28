@@ -164,7 +164,7 @@ export const TimeBody = ()=>{
                     <TableBody>
                       {times.map((row) => {
                         return (
-                          <TableRow>
+                          <TableRow key={row.idTime+"row"}>
                             <TableCell
                               key={3}
                               sx={{
