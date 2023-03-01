@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerWebApi.Models
 {
-    [Table("schedule", Schema = "dbo")]
+    [Table("activities", Schema = "dbo")]
     public class Activities
     {
         [Key]
@@ -26,8 +26,8 @@ namespace CustomerWebApi.Models
         public string Observation { get; set; }
         [Column("IDSCHEDULE")]
         [ForeignKey("IDSCHEDULE")]
-        public string IdSchedule { get; set; }
+        public int IdSchedule { get; set; }
         [Column("JUSTIFY")]
-        public string Justify { get; set; }
+        public bool Justify { get; set; }
     }
 }

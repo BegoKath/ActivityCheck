@@ -1,6 +1,5 @@
 ﻿using CustomerWebApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,7 +8,7 @@ namespace CustomerWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ScheduleController : Controller
+    public class ScheduleController : ControllerBase
     {
         private readonly TeacherDbContext _teacherDbContext;
         public ScheduleController(TeacherDbContext teacherDbContext)
@@ -21,14 +20,14 @@ namespace CustomerWebApi.Controllers
         {
             var schedulesList = new List<ResponseSchedule>();
             var schedules = _teacherDbContext.Schedules.ToList();
-            foreach(var item in schedules)
+            foreach (var item in schedules)
             {
                 var schedule = new ResponseSchedule();
                 var time = _teacherDbContext.Times.FirstOrDefault(p => p.IdTime == item.IdTime);
                 var classroom = _teacherDbContext.Classrooms.FirstOrDefault(p => p.IdClassroom == item.IdClassroom);
                 var teacher = _teacherDbContext.Teachers.FirstOrDefault(p => p.IdTeacher == item.IdTeacher);
                 var subject = _teacherDbContext.Subjects.FirstOrDefault(p => p.IdSubject == item.IdSubject);
-                if(time !=null ||classroom!=null||teacher!=null || subject != null)
+                if (time != null || classroom != null || teacher != null || subject != null)
                 {
                     schedule.IdShedule = item.IdSchedule;
                     schedule.Day = item.Day;
@@ -42,7 +41,7 @@ namespace CustomerWebApi.Controllers
             }
             return schedulesList;
         }
-       
+
         [HttpPost]
         public async Task<ActionResult> Create(Schedule classroom)
         {
