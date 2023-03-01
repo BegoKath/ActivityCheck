@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IActivities } from "../../../interfaces/IActivities";
 import { IClassroom } from "../../../interfaces/IClassroom";
 import { ISchedule } from "../../../interfaces/ISchedule";
 import { ISubject } from "../../../interfaces/ISubject";
@@ -8,13 +9,15 @@ export interface IActivitiesState{
     subjects:ISubject[],
     classrooms:IClassroom[],
     times:ITime[],
-    schedules:ISchedule[]
+    schedules:ISchedule[],
+    activities:IActivities[],
 }
 const initialState:IActivitiesState={
     subjects:[],
     classrooms:[],
     times:[],
-    schedules:[]
+    schedules:[],
+    activities:[]
 }
 export const activitiesSlice = createSlice({
     name:"activities",
@@ -31,6 +34,9 @@ export const activitiesSlice = createSlice({
         },
         setSchedules:(state,action:PayloadAction<ISchedule[]>) =>{
             state.schedules=action.payload;
+        },
+        setActivities:(state,action:PayloadAction<IActivities[]>) =>{
+            state.activities=action.payload;
         },
     
     }

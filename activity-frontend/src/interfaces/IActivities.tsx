@@ -1,14 +1,12 @@
+import { ISchedule } from "./ISchedule";
+
 export interface IActivities {
-  id: number;
-  timeSchedule: string;
-  subject: string;
-  nrc: number;
-  teacherName: string;
-  classroom: string;
-  input: boolean;
-  timeInput: string;
-  output: boolean;
-  timeOutput: string;
-  classTopic: string;
-  observation: string;
+   idActivities:number;
+    dateResgister:string;
+    timeStart: string;
+    timeEnd:string;
+    topicClass:string;
+    observation:string;
+    justify:boolean;
+    schedule:ISchedule;
 }

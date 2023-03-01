@@ -1,5 +1,4 @@
 import {
-  Checkbox,
   Table,
   TableBody,
   TableCell,
@@ -9,8 +8,6 @@ import {
 } from "@mui/material";
 
 import { columns } from "../../../constants/colums";
-import { rows } from "../../../constants/data";
-import { IActivities } from "../../../interfaces/IActivities";
 
 export const TableActivities = () => {
   return (
@@ -47,29 +44,7 @@ export const TableActivities = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
-                    const value = row[column.id as keyof IActivities];
-                    return (
-                      <TableCell key={column.id} align={column.align} sx={{                    
-                        fontFamily: "'Quattrocento', 'serif'",
-                        textAlign:"center"
-                      }}>
-                        {column.id === "input" || column.id === "output" ? (
-                          <Checkbox checked={value as boolean}></Checkbox>
-                        ) : column.format && typeof value === "number" ? (
-                          column.format(value)
-                        ) : (
-                          value
-                        )}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })}
+           
           </TableBody>
         </Table>
       </TableContainer>
