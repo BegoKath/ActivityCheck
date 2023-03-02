@@ -14,7 +14,7 @@ export class ActivitiesService {
     return Api.post(url, body);
   };
   static getActivitiesDate = async (date: string): Promise<any> => {
-    const url = "http://localhost:29513/api/Activities/day";
+    const url = "http://localhost:29513/api/Activities/date";
     const body = {
       Date: date,
     };

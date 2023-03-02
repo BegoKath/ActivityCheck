@@ -126,23 +126,39 @@ const getActivities = (): any => async (dispatch: Dispatch) => {
 
   dispatch(activitiesActions.setActivities(activities as IActivities[]));
 };
-const getActivitiesSchedule = (day: string,date:string):any=>async(dispatch: Dispatch)=> {
-  const schedules = await ScheduleService.getScheduleDay(day);
-  const activities: IActivities[] = schedules.map((schedule:ISchedule)=>{
-    const activity:IActivities= {
-      idActivities: schedule.idShedule,
-      topicClass: "",
-      timeEnd: "",
-      timeStart: "",
-      dateResgister: "",
-      observation: "",
-      schedule: schedule,
-      justify: false
-    }
-    return(activity);
-  });
-  const activitiesDb= await ActivitiesService.getActivitiesDate(date);
-}
+const getActivitiesSchedule =
+  (day: string, date: string): any =>
+  async (dispatch: Dispatch) => {
+    const schedules = await ScheduleService.getScheduleDay(day);
+    var activities: IActivities[] = schedules.map((schedule: ISchedule) => {
+      const activity: IActivities = {
+        idActivities: schedule.idShedule,
+        topicClass: "",
+        timeEnd: "",
+        timeStart: "",
+        dateResgister: "",
+        observation: "",
+        schedule: schedule,
+        justify: false,
+      };
+      return activity;
+    });
+    const activitiesDb = (await ActivitiesService.getActivitiesDate(
+      date
+    )) as IActivities[];
+    activities = activities.map((item) => {
+      const ac = activitiesDb.find((e) => {
+        return e.schedule.idShedule === item.schedule.idShedule;
+      });
+      if (ac !== undefined) {
+        return ac;
+      } else {
+        return item;
+      }
+    });
+    dispatch(activitiesActions.setActivities(activities));
+    return true;
+  };
 
 const setActivities =
   (values: IActivities): any =>
@@ -181,4 +197,5 @@ export const activitiesThunks = {
   getActivities,
   setActivities,
   deleteActivities,
+  getActivitiesSchedule,
 };

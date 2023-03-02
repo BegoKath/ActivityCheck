@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { IActivities } from "../interfaces/IActivities";
 import { IClassroom } from "../interfaces/IClassroom";
 import { ISchedule } from "../interfaces/ISchedule";
 import { ISubject } from "../interfaces/ISubject";
@@ -33,6 +34,13 @@ export const useActivities = () => {
     dispatch(activitiesThunks.deleteSchedule(idSubject));
   const getScheduleDay = (value: string) =>
     dispatch(activitiesThunks.getScheduleDay(value));
+  const getActivities = () => dispatch(activitiesThunks.getActivities());
+  const setActivities = (values: IActivities) =>
+    dispatch(activitiesThunks.setActivities(values));
+  const deleteActivities = (value: number) =>
+    dispatch(activitiesThunks.deleteActivities(value));
+  const getActivitiesSchedule = (day: string, date: string) =>
+    dispatch(activitiesThunks.getActivitiesSchedule(day, date));
   return {
     state,
     getSubject,
@@ -48,5 +56,9 @@ export const useActivities = () => {
     setSchedule,
     deleteSchedule,
     getScheduleDay,
+    getActivities,
+    setActivities,
+    deleteActivities,
+    getActivitiesSchedule,
   };
 };

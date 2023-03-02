@@ -21,17 +21,14 @@ export const AdminScreen = () => {
     const url = location.search;
     const urlParams = new URLSearchParams(url);
     const code = urlParams.get("code");
-    if(code!==null){
+   
       var decrypted = CryptoJS.AES.decrypt(code, "Egresados");
       const email = decrypted.toString(CryptoJS.enc.Utf8);
       if (email !== "admin@admin.com") {
         await Alert.showError("Error. Vuelva a Intentar");
         navigate("/");
       }
-    }else{
-      await Alert.showError("Error. Vuelva a Intentar");
-      navigate("/");
-    }    
+     
   };
   useEffect(() => {
     alert();
