@@ -1,5 +1,5 @@
 import {
-  Checkbox,
+  Button,
   Table,
   TableBody,
   TableCell,
@@ -7,12 +7,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-
 import { columns } from "../../../constants/colums";
-import { rows } from "../../../constants/data";
-import { IActivities } from "../../../interfaces/IActivities";
+import { useActivities } from "../../../hooks/useActivities";
 
 export const TableActivities = () => {
+  const {
+    state: { activities },
+  } = useActivities();
   return (
     <>
       <TableContainer sx={{ maxHeight: 700 }}>
@@ -33,9 +34,8 @@ export const TableActivities = () => {
                     border: "1px solid #fff",
                     color: "#fff",
                     fontFamily: "'Quattrocento', 'serif'",
-                    fontWeight:"bold",
-                    textAlign:"center"
-                                     
+                    fontWeight: "bold",
+                    textAlign: "center",
                   }}
                   key={column.id}
                   align={column.align}
@@ -47,26 +47,118 @@ export const TableActivities = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => {
+            {activities.map((row) => {
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                  {columns.map((column) => {
-                    const value = row[column.id as keyof IActivities];
-                    return (
-                      <TableCell key={column.id} align={column.align} sx={{                    
-                        fontFamily: "'Quattrocento', 'serif'",
-                        textAlign:"center"
-                      }}>
-                        {column.id === "input" || column.id === "output" ? (
-                          <Checkbox checked={value as boolean}></Checkbox>
-                        ) : column.format && typeof value === "number" ? (
-                          column.format(value)
-                        ) : (
-                          value
-                        )}
-                      </TableCell>
-                    );
-                  })}
+                <TableRow key={row.idActivities + "row"}>
+                  <TableCell
+                    key={row.schedule.time.idTime}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.schedule.time.startTime +
+                      "-" +
+                      row.schedule.time.endTime}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.schedule.subject.title}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "nrc"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.schedule.subject.nrc}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "teacher"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.schedule.teacher.names +
+                      " " +
+                      row.schedule.teacher.surname}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "classroom"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.schedule.classroom.fieldClassroom +
+                      "-" +
+                      row.schedule.classroom.numClassroom}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "input"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.timeStart !== "" ? (
+                      row.timeStart
+                    ) : (
+                      <Button>Registrar</Button>
+                    )}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "ouput"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {row.timeEnd !== "" ? (
+                      row.timeEnd
+                    ) : (
+                      <Button>Registrar</Button>
+                    )}
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "topic"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={row.topicClass}
+                        readOnly
+                      ></input>
+                    }
+                  </TableCell>
+                  <TableCell
+                    key={row.schedule.subject.idSubject + "observation"}
+                    sx={{
+                      fontFamily: "'Quattrocento', 'serif'",
+                      textAlign: "center",
+                    }}
+                  >
+                    {
+                      <input
+                        className="form-control"
+                        type="text"
+                        value={row.observation}
+                        readOnly
+                      ></input>
+                    }
+                  </TableCell>
                 </TableRow>
               );
             })}

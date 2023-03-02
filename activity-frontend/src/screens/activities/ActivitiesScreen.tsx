@@ -1,12 +1,28 @@
 import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
 import {  Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useActivities } from "../../hooks/useActivities";
 import { TableActivities } from "./components/TableActivities";
 
 export const ActivitiesScreen = () => {
   const tiempoTranscurrido = Date.now();
   const hoy = new Date(tiempoTranscurrido);
   const navigate = useNavigate();
+  const {state:{activities},getActivitiesSchedule} = useActivities();
+ const [ac,setAc]= useState(false);
+
+  const getActivities= async ()=>{
+    const act= await getActivitiesSchedule("MIERCOLES","12-02-2023");
+    setAc(act);
+  }
+  useEffect(()=>{
+    if(!ac){
+      getActivities();
+    } 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[activities]);
+  
   return (
     <div style={page}>
       <div style={head}>

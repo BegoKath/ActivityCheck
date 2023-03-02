@@ -58,4 +58,21 @@ export class Api {
       return error;
     }
   };
+  static put = async (url: string): Promise<any> => {
+    try {
+      const res= await this.service.put(url,{
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      });
+      if (!res.data) {
+        return res;
+      }
+      const data = res.data;
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };
 }

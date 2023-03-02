@@ -1,7 +1,7 @@
 import { IColumn } from "../interfaces/IColumn";
 
 export const columns: readonly IColumn[] = [
-    { id: "id", label: "ORD", minWidth: 15 },
+    
     { id: "timeSchedule", label: "Horario de clases", minWidth: 50 },
     { id: "subject", label: "Asignatura", minWidth: 50 },
     { id: "nrc", label: "NRC", minWidth: 15 },
