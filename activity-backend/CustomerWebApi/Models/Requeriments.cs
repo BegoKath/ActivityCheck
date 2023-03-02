@@ -24,6 +24,10 @@ namespace CustomerWebApi.Models
     {
         public string day { get; set; }
     }
+    public class RequerimentsGetActivities
+    {
+        public string date { get; set; }
+    }
     public class ResponseActivities
     {
         public int  IdActivities {get; set;}
@@ -34,6 +38,5 @@ namespace CustomerWebApi.Models
         public string Observation { get; set; }
         public bool Justify { get; set; }
         public ResponseSchedule Schedule { get; set; }
-
     }
 }

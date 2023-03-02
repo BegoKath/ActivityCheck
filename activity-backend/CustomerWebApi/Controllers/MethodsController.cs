@@ -12,6 +12,7 @@ namespace CustomerWebApi.Controllers
     public class MethodsController : ControllerBase
     {
         private readonly TeacherDbContext _teacherDbContext;
+     
         public MethodsController(TeacherDbContext teacherDbContext)
         {
             _teacherDbContext = teacherDbContext;
@@ -59,5 +60,47 @@ namespace CustomerWebApi.Controllers
             }
             return schedulesList;
         }
+        [HttpPost]
+        [Route("api/Activities/date")]
+        public  ActionResult<IEnumerable<ResponseActivities>> GetDateSchedules(RequerimentsGetActivities date)
+        {
+            var activitiesList = new List<ResponseActivities>();
+            var activities =  _teacherDbContext.Activities.Where(p => p.DateRegister == date.date).ToList();
+           
+            foreach (var item in activities)
+            {
+                var activity = new ResponseActivities();
+               
+                var scheduleRes = new ResponseSchedule();
+                var schedule = _teacherDbContext.Schedules.FirstOrDefault(p => p.IdSchedule == item.IdSchedule);
+                if (schedule != null)
+                {
+                    var time = _teacherDbContext.Times.FirstOrDefault(p => p.IdTime == schedule.IdTime);
+                    var classroom = _teacherDbContext.Classrooms.FirstOrDefault(p => p.IdClassroom == schedule.IdClassroom);
+                    var teacher = _teacherDbContext.Teachers.FirstOrDefault(p => p.IdTeacher == schedule.IdTeacher);
+                    var subject = _teacherDbContext.Subjects.FirstOrDefault(p => p.IdSubject == schedule.IdSubject);
+                    if (time != null || classroom != null || teacher != null || subject != null)
+                    {
+                        scheduleRes.IdShedule = schedule.IdSchedule;
+                        scheduleRes.Day = schedule.Day;
+                        scheduleRes.Time = time;
+                        scheduleRes.Classroom = classroom;
+                        scheduleRes.Teacher = teacher;
+                        scheduleRes.Subject = subject;
+                    }
+                    activity.IdActivities = item.IdActivities;
+                    activity.DateRegister = item.DateRegister;
+                    activity.TimeStart = item.TimeStart;
+                    activity.TimeEnd = item.TimeEnd;
+                    activity.TopicClass = item.TopicClass;
+                    activity.Observation = item.Observation;
+                    activity.Justify = item.Justify;
+                    activity.Schedule = scheduleRes;
+                    activitiesList.Add(activity);
+                }
+            }
+            return activitiesList;
+        }
+
     }
 }

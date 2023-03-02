@@ -1,8 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import { IActivities } from "../../../interfaces/IActivities";
 import { IClassroom } from "../../../interfaces/IClassroom";
 import { ISchedule } from "../../../interfaces/ISchedule";
 import { ISubject } from "../../../interfaces/ISubject";
 import { ITime } from "../../../interfaces/ITime";
+import { ActivitiesService } from "../../../services/ActivitiesService";
 import { ClassroomService } from "../../../services/ClassroomService";
 import { ScheduleService } from "../../../services/ScheduleService";
 import { SubjectService } from "../../../services/SubjectService";
@@ -87,36 +89,81 @@ const deleteTime =
       return false;
     }
   };
-  const getSchedule = (): any => async (dispatch: Dispatch) => {
-    const schedules = await ScheduleService.getSchedule();
-  
-    dispatch(activitiesActions.setSchedules(schedules as ISchedule[]));
-  };
-  const getScheduleDay = (day:string): any => async (dispatch: Dispatch) => {
+const getSchedule = (): any => async (dispatch: Dispatch) => {
+  const schedules = await ScheduleService.getSchedule();
+
+  dispatch(activitiesActions.setSchedules(schedules as ISchedule[]));
+};
+const getScheduleDay =
+  (day: string): any =>
+  async (dispatch: Dispatch) => {
     const schedules = await ScheduleService.getScheduleDay(day);
-  
+
     dispatch(activitiesActions.setSchedules(schedules as ISchedule[]));
   };
-  const setSchedule =
-    (values: ISchedule): any =>
-    async () => {
-      const schedule = await ScheduleService.setSchedule(values);
-      if (schedule === "OK") {
-        return true;
-      } else {
-        return false;
-      }
-    };
-  const deleteSchedule =
-    (idClassroom: number): any =>
-    async () => {
-      const res = await ScheduleService.deleteSchedule(idClassroom);
-      if (res === "OK") {
-        return true;
-      } else {
-        return false;
-      }
-    };
+const setSchedule =
+  (values: ISchedule): any =>
+  async () => {
+    const schedule = await ScheduleService.setSchedule(values);
+    if (schedule === "OK") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+const deleteSchedule =
+  (idClassroom: number): any =>
+  async () => {
+    const res = await ScheduleService.deleteSchedule(idClassroom);
+    if (res === "OK") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+const getActivities = (): any => async (dispatch: Dispatch) => {
+  const activities = await ActivitiesService.getActivities();
+
+  dispatch(activitiesActions.setActivities(activities as IActivities[]));
+};
+const getActivitiesSchedule = (day: string,date:string):any=>async(dispatch: Dispatch)=> {
+  const schedules = await ScheduleService.getScheduleDay(day);
+  const activities: IActivities[] = schedules.map((schedule:ISchedule)=>{
+    const activity:IActivities= {
+      idActivities: schedule.idShedule,
+      topicClass: "",
+      timeEnd: "",
+      timeStart: "",
+      dateResgister: "",
+      observation: "",
+      schedule: schedule,
+      justify: false
+    }
+    return(activity);
+  });
+  const activitiesDb= await ActivitiesService.getActivitiesDate(date);
+}
+
+const setActivities =
+  (values: IActivities): any =>
+  async () => {
+    const schedule = await ActivitiesService.setActivities(values);
+    if (schedule === "OK") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+const deleteActivities =
+  (idClassroom: number): any =>
+  async () => {
+    const res = await ActivitiesService.deleteActivities(idClassroom);
+    if (res === "OK") {
+      return true;
+    } else {
+      return false;
+    }
+  };
 export const activitiesThunks = {
   getSubject,
   setSubject,
@@ -129,5 +176,9 @@ export const activitiesThunks = {
   deleteTime,
   getSchedule,
   setSchedule,
-  deleteSchedule,getScheduleDay
+  deleteSchedule,
+  getScheduleDay,
+  getActivities,
+  setActivities,
+  deleteActivities,
 };
