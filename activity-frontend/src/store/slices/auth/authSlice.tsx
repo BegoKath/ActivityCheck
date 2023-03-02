@@ -2,18 +2,26 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITeacher } from "../../../interfaces/ITeacher";
 
 export interface IAuthState{
+    loading: boolean;
     teacher?:ITeacher,
     isAuth:boolean,
     isAdmin:boolean
 }
 const initialState:IAuthState={
     isAuth:false,
-    isAdmin:false
+    isAdmin:false,
+    loading: false,
 }
 export const authSlice = createSlice({
     name:"auth",
     initialState:initialState,
     reducers:{
+        startLogging: (state) => {
+            state.loading = true;
+          },
+          stopLogging: (state) => {
+            state.loading = false;
+          },
         setAuth:(state,action: PayloadAction<boolean>)=>{
             state.isAuth=action.payload;
         },

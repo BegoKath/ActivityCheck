@@ -8,9 +8,12 @@ import { useTeacher } from "../../hooks/useTeacher";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router-dom";
 import { Alert } from "../../utils/Alert";
+import { FaceRegisterDialog } from "./components/FaceRegisterDialog";
+import { useApp } from "../../hooks/useApp";
 
 export const RegisterScreen = () => {
-  const { getTeachers, setTeacher } = useTeacher();
+  const {  setTeacher } = useTeacher();
+  const {showFaceRegister} = useApp();
   const navigate = useNavigate();
   const [values, setValues] = useState<ITeacher>({
     idTeacher: 0,
@@ -178,7 +181,7 @@ export const RegisterScreen = () => {
                 background: "#036A3F",
               }}
               startIcon={<FaceIcon />}
-              onClick={getTeachers}
+              onClick={showFaceRegister}
             >
               Reconocimiento Facial
             </Button>
@@ -207,6 +210,7 @@ export const RegisterScreen = () => {
           </div>
         </Col>
       </Row>
+      <FaceRegisterDialog/>
     </Container>
   );
 };

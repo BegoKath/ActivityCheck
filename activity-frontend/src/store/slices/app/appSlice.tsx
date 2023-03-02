@@ -9,10 +9,12 @@ export interface IAppState {
   classroomBody: boolean;
   scheduleBody:boolean;
   timeBody:boolean;
+  showFaceRegisterDialog:boolean;
 }
 const initialState: IAppState = {
   openLoginEmail: false,
   openDialogSchedule:false,
+  showFaceRegisterDialog:false,
   navBarAdmin: true,
   subjectBody: false,
   teacherBody: false,
@@ -48,6 +50,13 @@ export const appSlice = createSlice({
     setTimeBody:(state, action: PayloadAction<boolean>)=>{
       state.timeBody = action.payload;
     },
+    showFaceRegister:(state)=>{
+      state.showFaceRegisterDialog = true;
+    },
+    closeFaceRegister:(state)=>{
+      state.showFaceRegisterDialog = false;
+    },
+    
   },
 });
 

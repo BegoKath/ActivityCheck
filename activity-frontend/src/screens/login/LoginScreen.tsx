@@ -3,6 +3,7 @@ import { Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Logo_ESPE.png";
 import { useApp } from "../../hooks/useApp";
+import { FaceRecognitionScreen } from "../face/FaceRecognitionScreen";
 import { DialogLogin } from "./component/DialogLogin";
 export const LoginScreen = () => {
   const navigate = useNavigate();
@@ -35,8 +36,10 @@ export const LoginScreen = () => {
         </Row>
         <Row className="pt-5" style={{ justifyContent: "center" }}>
           <div
-            style={{ background: "#fff", height: "500px", width: "500px" }}
-          ></div>
+            
+          >
+            <FaceRecognitionScreen/>
+          </div>
         </Row>
         <Row
           className="pt-5 d-flex flex-row"
