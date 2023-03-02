@@ -33,5 +33,6 @@ namespace CustomerWebApi
         public DbSet<Time> Times { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Activities> Activities { get; set; }
+        public DbSet<Face> Face { get; set; }
     }
 }
