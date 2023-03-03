@@ -23,4 +23,8 @@ export class TeacherService {
 
         return Api.delete(url);
     }
+    static getTeacherId = async (idTeacher:number):Promise<any> =>{
+        const url = `http://localhost:29513/api/Teacher/${idTeacher}`;
+        return Api.get(url);
+    }
 }

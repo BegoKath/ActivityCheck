@@ -7,8 +7,9 @@ export const useAuth = ()=>{
     const dispatch = useDispatch();
     
     const loginWithEmail = (email:string,password:string)=>dispatch(authThunks.loginWithEmail(email,password));
+    const logInWithId = (id:number)=>dispatch(authThunks.logInWithId(id));
     return{
         state,
-        loginWithEmail
+        loginWithEmail,logInWithId
     }
 }

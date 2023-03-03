@@ -7,13 +7,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
 import { columns } from "../../../constants/colums";
 import { useActivities } from "../../../hooks/useActivities";
+import { teacherActions } from "../../../store/slices/teacher/teacherSlice";
 
 export const TableActivities = () => {
+  const dispatch = useDispatch();
+
   const {
     state: { activities },
   } = useActivities();
+
+  const handleRegisterStartTime = (id: number) => {
+    dispatch(teacherActions.setSelectedTeacher(id));
+    //Abres el reconocimiento de login
+  };
+
   return (
     <>
       <TableContainer sx={{ maxHeight: 700 }}>
@@ -111,7 +121,15 @@ export const TableActivities = () => {
                     {row.timeStart !== "" ? (
                       row.timeStart
                     ) : (
-                      <Button>Registrar</Button>
+                      <Button
+                        onClick={() =>
+                          handleRegisterStartTime(
+                            row.schedule.teacher.idTeacher
+                          )
+                        }
+                      >
+                        Registrar
+                      </Button>
                     )}
                   </TableCell>
                   <TableCell

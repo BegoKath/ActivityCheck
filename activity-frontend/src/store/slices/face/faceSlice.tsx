@@ -9,12 +9,18 @@ export interface IFaceState {
   neutralExpression: boolean;
   authMode?: boolean;
   userFounded?: number;
+  currentIdUser?:number;
+  faceUpdated:boolean;
+  picture: any;
 }
 const initialState: IFaceState = {
   allTeacherFaces: [],
   faceCapture: [],
   loading: false,
   neutralExpression: false,
+  currentIdUser:1,
+  faceUpdated:false,
+  picture: null,
 };
 export const faceSlice = createSlice({
   name: "face",
@@ -36,6 +42,7 @@ export const faceSlice = createSlice({
       state.error = undefined;
     },
     saveCapture: (state, action: PayloadAction<string>) => {
+      console.log('saveCapture');
       state.faceCapture.push(action.payload);
     },
     clearCaptures: (state) => {
@@ -52,6 +59,15 @@ export const faceSlice = createSlice({
     },
     setUserFounded: (state, action: PayloadAction<number>) => {
       state.userFounded = action.payload;
+    },
+    setCurrentIdUser: (state, action: PayloadAction<number>) => {
+      state.currentIdUser = action.payload;
+    },
+    setFaceUpdated: (state) => {
+      state.faceUpdated = true;
+    },
+    setPicture: (state, action) => {
+      state.picture = action.payload;
     },
     resetState: () => {
       return initialState;

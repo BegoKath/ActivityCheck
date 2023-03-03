@@ -9,14 +9,13 @@ import { FaceRecognitionLoginView } from "./components/FaceRecognitionLoginView"
 
 export const FaceRecognitionScreen = () => {
   const canvasFaceRef: any = useRef();
-  const webcamRef:any = useRef();
+  const webcamRef: any = useRef();
   const width = 720;
   const height = 400;
   const { pathname } = useLocation();
   const {
     state: { faceCapture, error, authMode, loading, neutralExpression },
     loadModels,
-    startEditMode,
   } = useFace({ canvasFaceRef, webcamRef, height, width });
 
   return (
@@ -31,7 +30,7 @@ export const FaceRecognitionScreen = () => {
           condition={error === undefined}
           elseChildren={<ErrorOptions error={error!} loadModels={loadModels} />}
         >
-            <div className="d-flex rounded-lg overflow-hidden bg-black">
+          <div className="d-flex rounded-lg overflow-hidden bg-black">
             <video
               ref={webcamRef}
               width={width}
@@ -46,17 +45,14 @@ export const FaceRecognitionScreen = () => {
               width={width}
               height={height}
             />
-            </div>
-            <RenderIf
+          </div>
+          <RenderIf
             condition={!authMode}
             elseChildren={
               <FaceRecognitionLoginView neutralExpression={neutralExpression} />
             }
           >
-            <FaceRecognitionEditView
-              faceCaptures={faceCapture}
-              startEditMode={startEditMode}
-            />
+            <FaceRecognitionEditView faceCaptures={faceCapture} />
           </RenderIf>
         </RenderIf>
       </RenderIf>

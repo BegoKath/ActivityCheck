@@ -169,7 +169,6 @@ export const TeacherBody = () => {
                         >
                           <IconButton
                             onClick={async () => {
-                              console.log(row.idTeacher);
                               const res = await deleteTeacher(row.idTeacher);
                               if (res) {
                                 Alert.showSuccess({

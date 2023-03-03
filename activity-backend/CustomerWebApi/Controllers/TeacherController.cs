@@ -52,8 +52,11 @@ namespace CustomerWebApi.Controllers
                 return Ok("ERROR");
             }
             var face = _teacherDbContext.Face.FirstOrDefault(p=>p.IdTeacher==IdTeacher);
-            _teacherDbContext.Face.Remove(face);
-            await _teacherDbContext.SaveChangesAsync();
+            if( face != null)
+            {
+                _teacherDbContext.Face.Remove(face);
+                await _teacherDbContext.SaveChangesAsync();
+            }          
            
             _teacherDbContext.Teachers.Remove(teacher);
             await _teacherDbContext.SaveChangesAsync();

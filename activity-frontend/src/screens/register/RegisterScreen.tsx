@@ -12,7 +12,7 @@ import { FaceRegisterDialog } from "./components/FaceRegisterDialog";
 import { useApp } from "../../hooks/useApp";
 
 export const RegisterScreen = () => {
-  const {  setTeacher } = useTeacher();
+  const {  teacherRegister } = useTeacher();
   const {showFaceRegister} = useApp();
   const navigate = useNavigate();
   const [values, setValues] = useState<ITeacher>({
@@ -154,37 +154,9 @@ export const RegisterScreen = () => {
             InputLabelProps={{
               style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
             }}
-          />
-          <TextField
-            required
-            style={{ width: "90%", margin: "20px" }}
-            label={"Confirmar Contraseña"}
-            value={values.passwordTeacher}
-            variant="standard"
-            type="password"
-            onChange={handleChange("passwordTeacher")}
-            InputProps={{
-              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
-            }} // font size of input text
-            InputLabelProps={{
-              style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
-            }}
-          />
+          />          
 
           <div className="d-flex flex-column justify-content-center align-items-center mt-4">
-            <Button
-              style={{
-                padding: "5px",
-                fontFamily: "'Quattrocento', 'serif'",
-                fontSize: "18px",
-                color: "white",
-                background: "#036A3F",
-              }}
-              startIcon={<FaceIcon />}
-              onClick={showFaceRegister}
-            >
-              Reconocimiento Facial
-            </Button>
             <Button
               style={{
                 marginTop: "20px",
@@ -193,16 +165,13 @@ export const RegisterScreen = () => {
                 color: "white",
                 background: "#036A3F",
               }}
+              startIcon={<FaceIcon />}
               onClick={async () => {
-                const res = await setTeacher(values);
-                if (res) {
-                  await Alert.showSuccess({
-                    message: "Se ha creado correctamente.",
-                  });
-                  navigate("/login");
-                } else {
-                  await Alert.showError("Error:Vuelva a intentar");
-                }
+                teacherRegister(values);
+                  await Alert.showWarning(
+                     "Por favor, guarde su reconocimiento Facial",
+                  );
+                  showFaceRegister();                
               }}
             >
               Crear Cuenta
