@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { teacherActions } from "../../../store/slices/teacher/teacherSlice";
 import { useTeacher } from "../../../hooks/useTeacher";
 import { activitiesActions } from "../../../store/slices/activities/activitiesSlice";
+import { faceActions } from "../../../store/slices/face/faceSlice";
 
 export const FaceRegisterDialog = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export const FaceRegisterDialog = () => {
     if (!showFaceRegisterDialog) {
       dispatch(teacherActions.clearSelectedTeacher());
       dispatch(activitiesActions.clearSelectedTeacher());
+      dispatch(faceActions.clearfaceActivitySet());
     }
   }, [dispatch, showFaceRegisterDialog]);
 

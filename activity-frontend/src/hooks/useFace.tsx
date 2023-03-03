@@ -26,8 +26,14 @@ export const useFace = (props: {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { faceCapture, authMode, userFounded, currentIdUser, faceUpdated } =
-    state;
+  const {
+    faceCapture,
+    authMode,
+    userFounded,
+    currentIdUser,
+    faceUpdated,
+    faceActivitySet,
+  } = state;
   const {
     state: { teacher },
     logInWithId,
@@ -103,7 +109,10 @@ export const useFace = (props: {
 
             if (activitySelected.idActivities) {
               updateActivity(activity);
-            } else {
+            } else if (!faceActivitySet) {
+              dispatch(
+                faceActions.setfaceActivitySet(activity.schedule.idShedule)
+              );
               setActivities(activity);
             }
           } else {

@@ -23,8 +23,8 @@ export const AdminScreen = () => {
     if (param !== null) {
       var decrypted = CryptoJS.AES.decrypt(param, "Egresados");
       const email = decrypted.toString(CryptoJS.enc.Utf8);
-      if (email === "admin@admin.com") {
-        Alert.showSuccess({ message: "Bienvenido Admin" });
+      if (email !== "admin@admin.com") {
+        Alert.showError("El email no coincide con el usuario de administrador");
       }
     }
   };
