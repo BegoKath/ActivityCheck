@@ -88,10 +88,10 @@ export const useFace = (props: {
           if (activitySelected) {
             var activity: IActivities = {
               idActivities: activitySelected.idActivities,
-              dateResgister:
-                activitySelected.dateResgister === ""
+              dateRegister:
+                activitySelected.dateRegister === ""
                   ? hoy
-                  : activitySelected.dateResgister,
+                  : activitySelected.dateRegister,
               timeStart:
                 timeActivity === "start" ? hour : activitySelected.timeStart,
               timeEnd: timeActivity === "end" ? hour : activitySelected.timeEnd,
@@ -100,12 +100,11 @@ export const useFace = (props: {
               schedule: activitySelected.schedule,
               justify: false,
             };
+
             if (activitySelected.idActivities) {
-              const res = await updateActivity(activity);
-              console.log(res);
+              updateActivity(activity);
             } else {
-              const res = setActivities(activity);
-              console.log(res);
+              setActivities(activity);
             }
           } else {
             Alert.showError("Lo sentimos, no hemos podido reconocerte", {
@@ -129,7 +128,7 @@ export const useFace = (props: {
   useEffect(() => {
     activityUpdate();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [logInWithId, navigate, pathname, teacher, userFounded]);
+  }, [userFounded]);
 
   const loadModels = () =>
     dispatch(faceThunks.loadModels({ session: teacher, screen: pathname }));
@@ -202,6 +201,7 @@ export const useFace = (props: {
     }
   };
   const handleFaceNotFound = async () => {
+    closeFaceRegister();
     await Alert.showError("Lo sentimos, no hemos podido reconocerte", {
       title: "Usuario no encontrado",
       timer: 5,

@@ -89,7 +89,12 @@ namespace CustomerWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Activities activities)
         {
-            await _teacherDbContext.Activities.AddAsync(activities);
+            var activity = _teacherDbContext.Activities.FirstOrDefault(p => p.DateRegister == activities.DateRegister && p.IdSchedule == activities.IdSchedule);
+            if (activity != null)
+            {
+                return Ok(); 
+            }
+           await _teacherDbContext.Activities.AddAsync(activities);
             await _teacherDbContext.SaveChangesAsync();
             return Ok("OK");
         }

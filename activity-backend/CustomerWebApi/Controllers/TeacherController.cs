@@ -31,6 +31,7 @@ namespace CustomerWebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(Teacher teacher)
         {
+           
             await _teacherDbContext.Teachers.AddAsync(teacher);
             await _teacherDbContext.SaveChangesAsync();
             var item = _teacherDbContext.Teachers.FirstOrDefault(p => p.IdTeacher == teacher.IdTeacher);

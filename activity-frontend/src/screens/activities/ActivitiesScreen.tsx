@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { dias } from "../../constants/days";
@@ -14,17 +14,14 @@ export const ActivitiesScreen = () => {
     state: { activities },
     getActivitiesSchedule,
   } = useActivities();
-  const [ac, setAc] = useState(false);
   const today = new Date();
   const day = dias[today.getDay()];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getActivities = async () => {
-    const act = await getActivitiesSchedule(day, hoy);
-    setAc(act);
+    await getActivitiesSchedule(day, hoy);
   };
   useEffect(() => {
-    if (!ac) {
-      getActivities();
-    }
+    getActivities();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activities]);
 

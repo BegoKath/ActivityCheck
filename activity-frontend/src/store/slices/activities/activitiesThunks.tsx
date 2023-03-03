@@ -136,7 +136,7 @@ const getActivitiesSchedule =
         topicClass: "",
         timeEnd: "",
         timeStart: "",
-        dateResgister: "",
+        dateRegister: "",
         observation: "",
         schedule: schedule,
         justify: false,
@@ -146,7 +146,6 @@ const getActivitiesSchedule =
     const activitiesDb = (await ActivitiesService.getActivitiesDate(
       date
     )) as IActivities[];
-    console.log(activitiesDb);
     activities = activities.map((item) => {
       const ac = activitiesDb.find((e) => {
         return e.schedule.idShedule === item.schedule.idShedule;
@@ -157,7 +156,6 @@ const getActivitiesSchedule =
         return item;
       }
     });
-    console.log(activities);
     dispatch(activitiesActions.setActivities(activities));
     return true;
   };

@@ -8,22 +8,28 @@ import {
   TableRow,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
 import { columns } from "../../../constants/colums";
 import { useActivities } from "../../../hooks/useActivities";
 import { useApp } from "../../../hooks/useApp";
 import { IActivities } from "../../../interfaces/IActivities";
 import { activitiesActions } from "../../../store/slices/activities/activitiesSlice";
 import { teacherActions } from "../../../store/slices/teacher/teacherSlice";
-
+interface IInput {
+  item: string;
+}
 export const TableActivities = () => {
   const dispatch = useDispatch();
 
   const {
     state: { activities },
+    updateActivity,
+    setActivities,
   } = useActivities();
   const { showFaceRegister } = useApp();
-
-  const handleRegisterStartTime = (
+  const date = new Date();
+  const hoy = date.toLocaleDateString("en-US");
+  const handleRegisterTime = (
     id: number,
     values: IActivities,
     time: string
@@ -33,7 +39,55 @@ export const TableActivities = () => {
     dispatch(activitiesActions.setTimeActivity(time));
     showFaceRegister();
   };
-
+  const newInput = async (input: string) => {
+    return await Swal.fire({
+      title: "",
+      html:
+        ' <div class="form-group">' +
+        ` <label for="${input}"${input}</label>` +
+        `<input type="text" class="form-control" id="${input}" placeholder="${input}">` +
+        "</div>",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Guardar",
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        const item = (document.getElementById(input) as HTMLInputElement).value;
+        if (item!) {
+          return new Promise(function (resolve) {
+            resolve({ item });
+          });
+        }
+      },
+    });
+  };
+  const handleRegisterInput = async (values: IActivities, input: string) => {
+    const alert = await newInput(input);
+    if (alert.isConfirmed) {
+      if (values) {
+        const item = alert.value as IInput;
+        var activity: IActivities = {
+          idActivities: values.idActivities,
+          dateRegister: values.dateRegister === "" ? hoy : values.dateRegister,
+          timeStart: values.timeStart,
+          timeEnd: values.timeEnd,
+          topicClass:
+            input === "Tema" ? (item.item as string) : values.topicClass,
+          observation:
+            input === "Observación"
+              ? (item.item as string)
+              : values.observation,
+          schedule: values.schedule,
+          justify: input === "Observación" ? true : false,
+        };
+        if (values.idActivities) {
+          updateActivity(activity);
+        } else {
+          setActivities(activity);
+        }
+      }
+    }
+  };
   return (
     <>
       <TableContainer sx={{ maxHeight: 700 }}>
@@ -133,7 +187,7 @@ export const TableActivities = () => {
                     ) : (
                       <Button
                         onClick={() =>
-                          handleRegisterStartTime(
+                          handleRegisterTime(
                             row.schedule.teacher.idTeacher,
                             row,
                             "start"
@@ -156,7 +210,7 @@ export const TableActivities = () => {
                     ) : (
                       <Button
                         onClick={() =>
-                          handleRegisterStartTime(
+                          handleRegisterTime(
                             row.schedule.teacher.idTeacher,
                             row,
                             "end"
@@ -179,6 +233,9 @@ export const TableActivities = () => {
                         className="form-control"
                         type="text"
                         value={row.topicClass}
+                        onClick={() => {
+                          handleRegisterInput(row, "Tema");
+                        }}
                         readOnly
                       ></input>
                     }
@@ -195,6 +252,9 @@ export const TableActivities = () => {
                         className="form-control"
                         type="text"
                         value={row.observation}
+                        onClick={() => {
+                          handleRegisterInput(row, "Observación");
+                        }}
                         readOnly
                       ></input>
                     }

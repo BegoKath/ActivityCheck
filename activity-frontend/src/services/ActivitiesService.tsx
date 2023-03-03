@@ -13,7 +13,7 @@ export class ActivitiesService {
   static setActivities = async (values: IActivities): Promise<any> => {
     const url = "http://localhost:29513/api/Activities";
     const body = {
-      DateRegister: values.dateResgister,
+      DateRegister: values.dateRegister,
       TimeStart: values.timeStart,
       TimeEnd: values.timeEnd,
       TopicClass: values.topicClass,
@@ -37,7 +37,8 @@ export class ActivitiesService {
   static updateActivity = async (values: IActivities): Promise<any> => {
     const url = `http://localhost:29513/api/Activities`;
     const body = {
-      DateRegister: values.dateResgister,
+      DateRegister: values.dateRegister,
+      IdActivities: values.idActivities,
       TimeStart: values.timeStart,
       TimeEnd: values.timeEnd,
       TopicClass: values.topicClass,

@@ -2,7 +2,7 @@ import { ISchedule } from "./ISchedule";
 
 export interface IActivities {
   idActivities?: number;
-  dateResgister: string;
+  dateRegister: string;
   timeStart: string;
   timeEnd: string;
   topicClass: string;
