@@ -12,8 +12,8 @@ import { FaceRegisterDialog } from "./components/FaceRegisterDialog";
 import { useApp } from "../../hooks/useApp";
 
 export const RegisterScreen = () => {
-  const {  teacherRegister } = useTeacher();
-  const {showFaceRegister} = useApp();
+  const { teacherRegister } = useTeacher();
+  const { showFaceRegister } = useApp();
   const navigate = useNavigate();
   const [values, setValues] = useState<ITeacher>({
     idTeacher: 0,
@@ -154,7 +154,7 @@ export const RegisterScreen = () => {
             InputLabelProps={{
               style: { fontSize: 20, fontFamily: "'Quattrocento', 'serif'" },
             }}
-          />          
+          />
 
           <div className="d-flex flex-column justify-content-center align-items-center mt-4">
             <Button
@@ -168,10 +168,10 @@ export const RegisterScreen = () => {
               startIcon={<FaceIcon />}
               onClick={async () => {
                 teacherRegister(values);
-                  await Alert.showWarning(
-                     "Por favor, guarde su reconocimiento Facial",
-                  );
-                  showFaceRegister();                
+                await Alert.showWarning(
+                  "Por favor, guarde su reconocimiento facial."
+                );
+                showFaceRegister();
               }}
             >
               Crear Cuenta
@@ -179,7 +179,7 @@ export const RegisterScreen = () => {
           </div>
         </Col>
       </Row>
-      <FaceRegisterDialog/>
+      <FaceRegisterDialog />
     </Container>
   );
 };

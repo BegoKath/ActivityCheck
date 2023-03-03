@@ -10,6 +10,9 @@ import {
 import { useDispatch } from "react-redux";
 import { columns } from "../../../constants/colums";
 import { useActivities } from "../../../hooks/useActivities";
+import { useApp } from "../../../hooks/useApp";
+import { IActivities } from "../../../interfaces/IActivities";
+import { activitiesActions } from "../../../store/slices/activities/activitiesSlice";
 import { teacherActions } from "../../../store/slices/teacher/teacherSlice";
 
 export const TableActivities = () => {
@@ -18,10 +21,17 @@ export const TableActivities = () => {
   const {
     state: { activities },
   } = useActivities();
+  const { showFaceRegister } = useApp();
 
-  const handleRegisterStartTime = (id: number) => {
+  const handleRegisterStartTime = (
+    id: number,
+    values: IActivities,
+    time: string
+  ) => {
     dispatch(teacherActions.setSelectedTeacher(id));
-    //Abres el reconocimiento de login
+    dispatch(activitiesActions.setSelectedActivity(values));
+    dispatch(activitiesActions.setTimeActivity(time));
+    showFaceRegister();
   };
 
   return (
@@ -59,7 +69,7 @@ export const TableActivities = () => {
           <TableBody>
             {activities.map((row) => {
               return (
-                <TableRow key={row.idActivities + "row"}>
+                <TableRow key={row.schedule.idShedule + "row"}>
                   <TableCell
                     key={row.schedule.time.idTime}
                     sx={{
@@ -124,7 +134,9 @@ export const TableActivities = () => {
                       <Button
                         onClick={() =>
                           handleRegisterStartTime(
-                            row.schedule.teacher.idTeacher
+                            row.schedule.teacher.idTeacher,
+                            row,
+                            "start"
                           )
                         }
                       >
@@ -142,7 +154,17 @@ export const TableActivities = () => {
                     {row.timeEnd !== "" ? (
                       row.timeEnd
                     ) : (
-                      <Button>Registrar</Button>
+                      <Button
+                        onClick={() =>
+                          handleRegisterStartTime(
+                            row.schedule.teacher.idTeacher,
+                            row,
+                            "end"
+                          )
+                        }
+                      >
+                        Registrar
+                      </Button>
                     )}
                   </TableCell>
                   <TableCell

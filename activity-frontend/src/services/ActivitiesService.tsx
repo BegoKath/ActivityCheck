@@ -6,10 +6,20 @@ export class ActivitiesService {
     const url = "http://localhost:29513/api/Activities";
     return Api.get(url);
   };
+  static getActivitiesId = async (value: number): Promise<any> => {
+    const url = `http://localhost:29513/api/Activities/${value}`;
+    return Api.get(url);
+  };
   static setActivities = async (values: IActivities): Promise<any> => {
     const url = "http://localhost:29513/api/Activities";
     const body = {
-      
+      DateRegister: values.dateResgister,
+      TimeStart: values.timeStart,
+      TimeEnd: values.timeEnd,
+      TopicClass: values.topicClass,
+      Observation: values.observation,
+      Justify: values.justify,
+      IdSchedule: values.schedule.idShedule,
     };
     return Api.post(url, body);
   };
@@ -24,9 +34,17 @@ export class ActivitiesService {
     const url = `http://localhost:29513/api/Activities/${idSchedule}`;
     return Api.delete(url);
   };
-  static updateActivity = async (idActivities:number): Promise<any> =>{
-    const url = `http://localhost:29513/api/Activities/${idActivities}`;
-    return Api.put(url);
-  }
-
+  static updateActivity = async (values: IActivities): Promise<any> => {
+    const url = `http://localhost:29513/api/Activities`;
+    const body = {
+      DateRegister: values.dateResgister,
+      TimeStart: values.timeStart,
+      TimeEnd: values.timeEnd,
+      TopicClass: values.topicClass,
+      Observation: values.observation,
+      Justify: values.justify,
+      IdSchedule: values.schedule.idShedule,
+    };
+    return Api.put(url, body);
+  };
 }

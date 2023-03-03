@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useApp } from "../../hooks/useApp";
 import { Alert } from "../../utils/Alert";
 import { ClassroomBody } from "./components/ClassroomBody";
@@ -16,7 +16,6 @@ export const AdminScreen = () => {
     state: { navBarAdmin, subjectBody, teacherBody, classroomBody, timeBody },
   } = useApp();
   const location = useLocation();
-  const navigate = useNavigate();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const alert = () => {
     const search = location.search;
@@ -24,10 +23,8 @@ export const AdminScreen = () => {
     if (param !== null) {
       var decrypted = CryptoJS.AES.decrypt(param, "Egresados");
       const email = decrypted.toString(CryptoJS.enc.Utf8);
-      if (email !== "admin@admin.com") {
-        console.log(email);
-        Alert.showError("Error. Vuelva a Intentar");
-        navigate("/");
+      if (email === "admin@admin.com") {
+        Alert.showSuccess({ message: "Bienvenido Admin" });
       }
     }
   };

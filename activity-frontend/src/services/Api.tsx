@@ -43,7 +43,7 @@ export class Api {
   };
   static delete = async (url: string): Promise<any> => {
     try {
-      const res= await this.service.delete(url,{
+      const res = await this.service.delete(url, {
         headers: {
           Accept: "*/*",
           "Content-Type": "application/json",
@@ -58,9 +58,9 @@ export class Api {
       return error;
     }
   };
-  static put = async (url: string): Promise<any> => {
+  static put = async (url: string, body?: any): Promise<any> => {
     try {
-      const res= await this.service.put(url,{
+      const res = await this.service.put(url, body, {
         headers: {
           Accept: "*/*",
           "Content-Type": "application/json",

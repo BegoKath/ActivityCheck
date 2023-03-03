@@ -12,7 +12,6 @@ export const useActivities = () => {
     (state: any) => state.activities
   ) as IActivitiesState;
   const dispatch = useDispatch();
-
   const getSubject = () => dispatch(activitiesThunks.getSubject());
   const setSubject = (value: ISubject) =>
     dispatch(activitiesThunks.setSubject(value));
@@ -35,12 +34,17 @@ export const useActivities = () => {
   const getScheduleDay = (value: string) =>
     dispatch(activitiesThunks.getScheduleDay(value));
   const getActivities = () => dispatch(activitiesThunks.getActivities());
-  const setActivities = (values: IActivities) =>
+  const updateActivity = (value: IActivities) =>
+    dispatch(activitiesThunks.updateActivity(value));
+  const setActivities = (values: IActivities) => {
     dispatch(activitiesThunks.setActivities(values));
+  };
+
   const deleteActivities = (value: number) =>
     dispatch(activitiesThunks.deleteActivities(value));
   const getActivitiesSchedule = (day: string, date: string) =>
     dispatch(activitiesThunks.getActivitiesSchedule(day, date));
+
   return {
     state,
     getSubject,
@@ -60,5 +64,6 @@ export const useActivities = () => {
     setActivities,
     deleteActivities,
     getActivitiesSchedule,
+    updateActivity,
   };
 };

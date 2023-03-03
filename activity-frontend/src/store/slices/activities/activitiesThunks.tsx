@@ -9,6 +9,7 @@ import { ClassroomService } from "../../../services/ClassroomService";
 import { ScheduleService } from "../../../services/ScheduleService";
 import { SubjectService } from "../../../services/SubjectService";
 import { TimeService } from "../../../services/TimeService";
+import { Alert } from "../../../utils/Alert";
 import { activitiesActions } from "./activitiesSlice";
 
 const getSubject = (): any => async (dispatch: Dispatch) => {
@@ -132,7 +133,6 @@ const getActivitiesSchedule =
     const schedules = await ScheduleService.getScheduleDay(day);
     var activities: IActivities[] = schedules.map((schedule: ISchedule) => {
       const activity: IActivities = {
-        idActivities: schedule.idShedule,
         topicClass: "",
         timeEnd: "",
         timeStart: "",
@@ -146,6 +146,7 @@ const getActivitiesSchedule =
     const activitiesDb = (await ActivitiesService.getActivitiesDate(
       date
     )) as IActivities[];
+    console.log(activitiesDb);
     activities = activities.map((item) => {
       const ac = activitiesDb.find((e) => {
         return e.schedule.idShedule === item.schedule.idShedule;
@@ -156,8 +157,15 @@ const getActivitiesSchedule =
         return item;
       }
     });
+    console.log(activities);
     dispatch(activitiesActions.setActivities(activities));
     return true;
+  };
+const getActivitiesId =
+  (id: number): any =>
+  async () => {
+    const activity = await ActivitiesService.getActivitiesId(id);
+    return activity;
   };
 
 const setActivities =
@@ -165,8 +173,10 @@ const setActivities =
   async () => {
     const schedule = await ActivitiesService.setActivities(values);
     if (schedule === "OK") {
+      await Alert.showSuccess({ message: "Exito" });
       return true;
     } else {
+      await Alert.showError("Error");
       return false;
     }
   };
@@ -177,6 +187,19 @@ const deleteActivities =
     if (res === "OK") {
       return true;
     } else {
+      return false;
+    }
+  };
+
+const updateActivity =
+  (values: IActivities): any =>
+  async () => {
+    const activity = await ActivitiesService.updateActivity(values);
+    if (activity === "OK") {
+      await Alert.showSuccess({ message: "Exito" });
+      return true;
+    } else {
+      await Alert.showError("Error");
       return false;
     }
   };
@@ -198,4 +221,6 @@ export const activitiesThunks = {
   setActivities,
   deleteActivities,
   getActivitiesSchedule,
+  updateActivity,
+  getActivitiesId,
 };

@@ -6,6 +6,8 @@ import { useApp } from "../../../hooks/useApp";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { teacherActions } from "../../../store/slices/teacher/teacherSlice";
+import { useTeacher } from "../../../hooks/useTeacher";
+import { activitiesActions } from "../../../store/slices/activities/activitiesSlice";
 
 export const FaceRegisterDialog = () => {
   const dispatch = useDispatch();
@@ -13,10 +15,14 @@ export const FaceRegisterDialog = () => {
     state: { showFaceRegisterDialog },
     closeFaceRegister,
   } = useApp();
+  const {
+    state: { selectedTeacher },
+  } = useTeacher();
 
   useEffect(() => {
     if (!showFaceRegisterDialog) {
       dispatch(teacherActions.clearSelectedTeacher());
+      dispatch(activitiesActions.clearSelectedTeacher());
     }
   }, [dispatch, showFaceRegisterDialog]);
 
@@ -31,7 +37,7 @@ export const FaceRegisterDialog = () => {
     >
       <DialogTitle>
         <>
-          Registro de la cara
+          {selectedTeacher ? "Reconocimiento" : "Registro de la cara"}
           <IconButton
             aria-label="close"
             onClick={closeFaceRegister}

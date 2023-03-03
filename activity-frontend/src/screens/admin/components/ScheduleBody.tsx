@@ -16,30 +16,37 @@ import {
 } from "@mui/material";
 import { useApp } from "../../../hooks/useApp";
 import { ScheduleDialog } from "./ScheduleDialog";
-const dias=['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
-   
+import { dias } from "../../../constants/days";
+
 export const ScheduleBody = () => {
   const today = new Date();
   const {
     state: { schedules },
     getSchedule,
-    deleteSchedule, getTime,
+    deleteSchedule,
+    getTime,
     getSubject,
     getClassroom,
-    getScheduleDay
+    getScheduleDay,
   } = useActivities();
   const { showDialogSchedule } = useApp();
-  const [day, setDay]= useState(dias[today.getDay()]);
-  
-  useEffect(() => {  
-    if(day==="LUNES"||day==="MARTES"||day==="MIERCOLES"||day==="JUEVES"||day==="VIERNES"){
+  const [day, setDay] = useState(dias[today.getDay()]);
+
+  useEffect(() => {
+    if (
+      day === "LUNES" ||
+      day === "MARTES" ||
+      day === "MIERCOLES" ||
+      day === "JUEVES" ||
+      day === "VIERNES"
+    ) {
       getScheduleDay(day);
-    }else{
-      getSchedule();      
-    }  
+    } else {
+      getSchedule();
+    }
     getTime();
     getSubject();
-    getClassroom(); 
+    getClassroom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schedules]);
 
@@ -84,9 +91,9 @@ export const ScheduleBody = () => {
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
             color: "#036A3F",
-            border:"1px solid #036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("TODOS")}
+          onClick={() => setDay("TODOS")}
         >
           Todos
         </Button>
@@ -95,9 +102,9 @@ export const ScheduleBody = () => {
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
             color: "#036A3F",
-            border:"1px solid #036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("LUNES")}
+          onClick={() => setDay("LUNES")}
         >
           Lunes
         </Button>
@@ -106,9 +113,9 @@ export const ScheduleBody = () => {
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
             color: "#036A3F",
-            border:"1px solid #036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("MARTES")}
+          onClick={() => setDay("MARTES")}
         >
           Martes
         </Button>
@@ -117,9 +124,9 @@ export const ScheduleBody = () => {
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
             color: "#036A3F",
-            border:"1px solid #036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("MIERCOLES")}
+          onClick={() => setDay("MIERCOLES")}
         >
           Miercoles
         </Button>
@@ -128,19 +135,20 @@ export const ScheduleBody = () => {
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
             color: "#036A3F",
-            border:"1px solid #036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("JUEVES")}
+          onClick={() => setDay("JUEVES")}
         >
           Jueves
-        </Button><Button
+        </Button>
+        <Button
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
             color: "#036A3F",
-            border:"1px solid #036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("VIERNES")}
+          onClick={() => setDay("VIERNES")}
         >
           Viernes
         </Button>
@@ -266,7 +274,7 @@ export const ScheduleBody = () => {
                 <TableBody>
                   {schedules.map((row) => {
                     return (
-                      <TableRow key={row.idShedule+"row"}>
+                      <TableRow key={row.idShedule + "row"}>
                         <TableCell
                           key={8}
                           sx={{

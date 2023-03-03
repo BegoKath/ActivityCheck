@@ -98,7 +98,7 @@ namespace CustomerWebApi.Controllers
         {
             _teacherDbContext.Activities.Update(activities);
             await _teacherDbContext.SaveChangesAsync();
-            return Ok();
+            return Ok("OK");
         }
 
         [HttpDelete("{IdSubject:int}")]

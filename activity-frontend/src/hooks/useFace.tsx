@@ -4,12 +4,16 @@ import { FaceExpressions } from "face-api.js";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IActivities } from "../interfaces/IActivities";
 import { faceActions, IFaceState } from "../store/slices/face/faceSlice";
 import { faceThunks } from "../store/slices/face/faceThunks";
 import { teacherThunks } from "../store/slices/teacher/teacherThunks";
 import { store } from "../store/store";
 import { Alert } from "../utils/Alert";
+import { useActivities } from "./useActivities";
+import { useApp } from "./useApp";
 import { useAuth } from "./useAuth";
+import { useTeacher } from "./useTeacher";
 
 export const useFace = (props: {
   canvasFaceRef: any;
@@ -28,9 +32,20 @@ export const useFace = (props: {
     state: { teacher },
     logInWithId,
   } = useAuth();
+  const {
+    state: { selectedTeacher },
+  } = useTeacher();
+  const { closeFaceRegister } = useApp();
+  const {
+    state: { activitySelected, timeActivity },
+    setActivities,
+    updateActivity,
+  } = useActivities();
+  const date = new Date();
+  const hoy = date.toLocaleDateString("en-US");
+  const hour = date.toLocaleTimeString("es-ES");
   let notFoundCounter = 0;
   let counter = 0;
-
   let detection: any;
 
   useEffect(() => {
@@ -65,17 +80,55 @@ export const useFace = (props: {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [faceUpdated]);
-  useEffect(() => {
+  const activityUpdate = async () => {
     if (userFounded) {
-      if (!teacher) {
-        logInWithId(userFounded);
-      } else if (userFounded === teacher.idTeacher) {
-        if (pathname === "/login") {
-          navigate("/");
+      if (pathname === "/") {
+        if (userFounded === selectedTeacher) {
+          closeFaceRegister();
+          if (activitySelected) {
+            var activity: IActivities = {
+              idActivities: activitySelected.idActivities,
+              dateResgister:
+                activitySelected.dateResgister === ""
+                  ? hoy
+                  : activitySelected.dateResgister,
+              timeStart:
+                timeActivity === "start" ? hour : activitySelected.timeStart,
+              timeEnd: timeActivity === "end" ? hour : activitySelected.timeEnd,
+              topicClass: activitySelected.topicClass,
+              observation: activitySelected.observation,
+              schedule: activitySelected.schedule,
+              justify: false,
+            };
+            if (activitySelected.idActivities) {
+              const res = await updateActivity(activity);
+              console.log(res);
+            } else {
+              const res = setActivities(activity);
+              console.log(res);
+            }
+          } else {
+            Alert.showError("Lo sentimos, no hemos podido reconocerte", {
+              title: "Usuario no encontrado",
+              timer: 5,
+            });
+          }
         } else {
+        }
+      } else {
+        if (!teacher) {
+          logInWithId(userFounded);
+        } else if (userFounded === teacher.idTeacher) {
+          if (pathname === "/login") {
+            navigate("/");
+          }
         }
       }
     }
+  };
+  useEffect(() => {
+    activityUpdate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [logInWithId, navigate, pathname, teacher, userFounded]);
 
   const loadModels = () =>
@@ -180,11 +233,6 @@ export const useFace = (props: {
       const idUser = getMatchingUserId();
       //Trae el idUser de la persona que reconoció
       if (idUser) {
-        // const {selectedTeacher} = store.getState().teacher;
-        // if (idUser === selectedTeacher) {
-        //  registrar lo que tengas que hacer
-        // } else {  }
-
         notFoundCounter = 0;
 
         const currentExpressions = detection.expressions as FaceExpressions;
