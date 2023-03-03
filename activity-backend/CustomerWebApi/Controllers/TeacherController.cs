@@ -33,7 +33,8 @@ namespace CustomerWebApi.Controllers
         {
             await _teacherDbContext.Teachers.AddAsync(teacher);
             await _teacherDbContext.SaveChangesAsync();
-            return Ok("OK");
+            var item = _teacherDbContext.Teachers.FirstOrDefault(p => p.IdTeacher == teacher.IdTeacher);
+            return Ok(item);
         }
         [HttpPut]
         public async Task<ActionResult> Update(Teacher teacher)

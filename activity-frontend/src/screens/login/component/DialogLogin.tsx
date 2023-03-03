@@ -56,7 +56,7 @@ export const DialogLogin = () => {
 
   const login = async () => {
     var encrypted = CryptoJS.AES.encrypt(email, "Egresados");
-  
+
     const res = await loginWithEmail(email, password);
 
     if (res === "OK") {
@@ -74,10 +74,10 @@ export const DialogLogin = () => {
         );
       } else if (res === "ADMIN") {
         closeDialog();
+        navigate(`/admin?code=${encrypted.toString()}`);
         await Alert.showSuccess({
           message: "Inicio de sesiòn como administrador.",
         });
-        navigate(`/admin?code=${encrypted.toString()}`);
       } else {
         closeDialog();
         await Alert.showError("Error: 404");

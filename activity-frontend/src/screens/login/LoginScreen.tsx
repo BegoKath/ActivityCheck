@@ -7,10 +7,13 @@ import { FaceRecognitionScreen } from "../face/FaceRecognitionScreen";
 import { DialogLogin } from "./component/DialogLogin";
 export const LoginScreen = () => {
   const navigate = useNavigate();
-  const { showDialogLogin } = useApp();
+  const {
+    state: { openLoginEmail },
+    showDialogLogin,
+  } = useApp();
   return (
     <Container style={page}>
-      <div className="w-100" >
+      <div className="w-100">
         <Row className="pt-5">
           <div className="col-2" style={column}>
             <img
@@ -35,11 +38,7 @@ export const LoginScreen = () => {
           </div>
         </Row>
         <Row className="pt-5" style={{ justifyContent: "center" }}>
-          <div
-            
-          >
-            <FaceRecognitionScreen/>
-          </div>
+          <div>{openLoginEmail ? <></> : <FaceRecognitionScreen />}</div>
         </Row>
         <Row
           className="pt-5 d-flex flex-row"
@@ -86,7 +85,7 @@ const page: React.CSSProperties = {
   fontFamily: "'Quattrocento', 'serif'",
   margin: 0,
   display: "flex",
-  background: "#036A3F"
+  background: "#036A3F",
 };
 const column: React.CSSProperties = {
   display: "flex",

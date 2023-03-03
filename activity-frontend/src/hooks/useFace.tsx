@@ -44,6 +44,7 @@ export const useFace = (props: {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     if (authMode !== undefined) {
       handlePlay();
@@ -58,6 +59,8 @@ export const useFace = (props: {
   }, [faceCapture]);
   useEffect(() => {
     if (faceUpdated) {
+      dispatch(faceActions.resetState());
+      stopCamera();
       navigate("/login");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -204,10 +207,8 @@ export const useFace = (props: {
           handleFaceNotFound();
         }
       } else if (faceCapture.length < 3 && counter % 3 === 0) {
-        console.log("Toma foto");
         saveFace();
       } else if (faceCapture.length === 3) {
-        console.log("Guarda fotos");
         sendFaceToServer();
       }
     } else {

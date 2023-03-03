@@ -17,23 +17,23 @@ export const AdminScreen = () => {
   } = useApp();
   const location = useLocation();
   const navigate = useNavigate();
-  const alert = async () => {
-    const url = location.search;
-    const urlParams = new URLSearchParams(url);
-    const code = urlParams.get("code");
-   
-      var decrypted = CryptoJS.AES.decrypt(code, "Egresados");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const alert = () => {
+    const search = location.search;
+    const param = new URLSearchParams(search).get("code");
+    if (param !== null) {
+      var decrypted = CryptoJS.AES.decrypt(param, "Egresados");
       const email = decrypted.toString(CryptoJS.enc.Utf8);
       if (email !== "admin@admin.com") {
-        await Alert.showError("Error. Vuelva a Intentar");
+        console.log(email);
+        Alert.showError("Error. Vuelva a Intentar");
         navigate("/");
       }
-     
+    }
   };
   useEffect(() => {
     alert();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [alert]);
   const BodyAdmin = () => {
     if (subjectBody) {
       return <SubjectBody key={"subjectBody"} />;
