@@ -16,7 +16,15 @@ import {
 } from "@mui/material";
 import { useApp } from "../../../hooks/useApp";
 import { ScheduleDialog } from "./ScheduleDialog";
-import { dias } from "../../../constants/days";
+const dias = [
+  "DOMINGO",
+  "LUNES",
+  "MARTES",
+  "MIERCOLES",
+  "JUEVES",
+  "VIERNES",
+  "SABADO",
+];
 
 export const ScheduleBody = () => {
   const today = new Date();
