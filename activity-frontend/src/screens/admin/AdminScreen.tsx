@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useApp } from "../../hooks/useApp";
-import { ActivityBody } from "./components/activityBody";
+import { ActivityBody } from "./components/ActivityBody";
 //import { Alert } from "../../utils/Alert";
 import { ClassroomBody } from "./components/ClassroomBody";
 import { NavBar } from "./components/NavBar";
