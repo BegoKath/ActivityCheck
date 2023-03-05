@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useApp } from "../../hooks/useApp";
-import { Alert } from "../../utils/Alert";
+//import { Alert } from "../../utils/Alert";
 import { ClassroomBody } from "./components/ClassroomBody";
 import { NavBar } from "./components/NavBar";
 import { ScheduleBody } from "./components/ScheduleBody";
@@ -24,7 +24,8 @@ export const AdminScreen = () => {
       var decrypted = CryptoJS.AES.decrypt(param, "Egresados");
       const email = decrypted.toString(CryptoJS.enc.Utf8);
       if (email !== "admin@admin.com") {
-        Alert.showError("El email no coincide con el usuario de administrador");
+        console.log(email);
+        // Alert.showError("El email no coincide con el usuario de administrador");
       }
     }
   };

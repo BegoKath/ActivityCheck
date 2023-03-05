@@ -94,7 +94,7 @@ export const ScheduleBody = () => {
             color: day === "SABADO" || day === "DOMINGO" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
-          onClick={() => setDay("TODOS")}
+          onClick={() => setDay("SABADO")}
         >
           Todos
         </Button>
@@ -191,6 +191,24 @@ export const ScheduleBody = () => {
               >
                 <TableHead>
                   <TableRow>
+                    {day === "SABADO" || day === "DOMINGO" ? (
+                      <TableCell
+                        sx={{
+                          backgroundColor: "#036A3F",
+                          border: "1px solid #fff",
+                          color: "#fff",
+                          fontFamily: "'Quattrocento', 'serif'",
+                          fontWeight: "bold",
+                          textAlign: "center",
+                        }}
+                        key={13}
+                        align="center"
+                      >
+                        Día
+                      </TableCell>
+                    ) : (
+                      <></>
+                    )}
                     <TableCell
                       sx={{
                         backgroundColor: "#036A3F",
@@ -278,86 +296,104 @@ export const ScheduleBody = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {schedules.map((row) => {
-                    return (
-                      <TableRow key={row.idShedule + "row"}>
-                        <TableCell
-                          key={8}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
+                  {schedules.length === 0 ? (
+                    <></>
+                  ) : (
+                    schedules.map((row) => {
+                      return (
+                        <TableRow key={row.idShedule + "row"}>
+                          {day === "SABADO" || day === "DOMINGO" ? (
+                            <TableCell
+                              sx={{
+                                fontFamily: "'Quattrocento', 'serif'",
+                                textAlign: "center",
+                              }}
+                              key={14}
+                              align="center"
+                            >
+                              {row.day}
+                            </TableCell>
+                          ) : (
+                            <></>
+                          )}
+                          <TableCell
+                            key={8}
+                            sx={{
+                              fontFamily: "'Quattrocento', 'serif'",
 
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.time.startTime + "-" + row.time.endTime}
-                        </TableCell>
-                        <TableCell
-                          key={7}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.subject.title}
-                        </TableCell>
-                        <TableCell
-                          key={6}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.subject.nrc}
-                        </TableCell>
-                        <TableCell
-                          key={3}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.teacher.names + " " + row.teacher.surname}
-                        </TableCell>
-                        <TableCell
-                          key={4}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.classroom.fieldClassroom +
-                            "-" +
-                            row.classroom.numClassroom}
-                        </TableCell>
-                        <TableCell
-                          key={5}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-                            textAlign: "center",
-                          }}
-                        >
-                          <IconButton
-                            onClick={async () => {
-                              const res = await deleteSchedule(row.idShedule);
-                              if (res) {
-                                Alert.showSuccess({
-                                  message: "Eliminado con exito",
-                                });
-                              } else {
-                                Alert.showError("Error, vuelva a intentar.");
-                              }
+                              textAlign: "center",
                             }}
                           >
-                            <DeleteIcon color="error" />
-                          </IconButton>
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
+                            {row.time.startTime + "-" + row.time.endTime}
+                          </TableCell>
+                          <TableCell
+                            key={7}
+                            sx={{
+                              fontFamily: "'Quattrocento', 'serif'",
+
+                              textAlign: "center",
+                            }}
+                          >
+                            {row.subject.title}
+                          </TableCell>
+                          <TableCell
+                            key={6}
+                            sx={{
+                              fontFamily: "'Quattrocento', 'serif'",
+
+                              textAlign: "center",
+                            }}
+                          >
+                            {row.subject.nrc}
+                          </TableCell>
+                          <TableCell
+                            key={3}
+                            sx={{
+                              fontFamily: "'Quattrocento', 'serif'",
+
+                              textAlign: "center",
+                            }}
+                          >
+                            {row.teacher.names + " " + row.teacher.surname}
+                          </TableCell>
+                          <TableCell
+                            key={4}
+                            sx={{
+                              fontFamily: "'Quattrocento', 'serif'",
+
+                              textAlign: "center",
+                            }}
+                          >
+                            {row.classroom.fieldClassroom +
+                              "-" +
+                              row.classroom.numClassroom}
+                          </TableCell>
+                          <TableCell
+                            key={5}
+                            sx={{
+                              fontFamily: "'Quattrocento', 'serif'",
+                              textAlign: "center",
+                            }}
+                          >
+                            <IconButton
+                              onClick={async () => {
+                                const res = await deleteSchedule(row.idShedule);
+                                if (res) {
+                                  Alert.showSuccess({
+                                    message: "Eliminado con exito",
+                                  });
+                                } else {
+                                  Alert.showError("Error, vuelva a intentar.");
+                                }
+                              }}
+                            >
+                              <DeleteIcon color="error" />
+                            </IconButton>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  )}
                 </TableBody>
               </Table>
             </>
