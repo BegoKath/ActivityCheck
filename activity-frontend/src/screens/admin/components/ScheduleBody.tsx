@@ -16,30 +16,45 @@ import {
 } from "@mui/material";
 import { useApp } from "../../../hooks/useApp";
 import { ScheduleDialog } from "./ScheduleDialog";
-const dias=['DOMINGO', 'LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO'];
-   
+const dias = [
+  "DOMINGO",
+  "LUNES",
+  "MARTES",
+  "MIERCOLES",
+  "JUEVES",
+  "VIERNES",
+  "SABADO",
+];
+
 export const ScheduleBody = () => {
   const today = new Date();
   const {
     state: { schedules },
     getSchedule,
-    deleteSchedule, getTime,
+    deleteSchedule,
+    getTime,
     getSubject,
     getClassroom,
-    getScheduleDay
+    getScheduleDay,
   } = useActivities();
   const { showDialogSchedule } = useApp();
-  const [day, setDay]= useState(dias[today.getDay()]);
-  
-  useEffect(() => {  
-    if(day==="LUNES"||day==="MARTES"||day==="MIERCOLES"||day==="JUEVES"||day==="VIERNES"){
+  const [day, setDay] = useState(dias[today.getDay()]);
+
+  useEffect(() => {
+    if (
+      day === "LUNES" ||
+      day === "MARTES" ||
+      day === "MIERCOLES" ||
+      day === "JUEVES" ||
+      day === "VIERNES"
+    ) {
       getScheduleDay(day);
-    }else{
-      getSchedule();      
-    }  
+    } else {
+      getSchedule();
+    }
     getTime();
     getSubject();
-    getClassroom(); 
+    getClassroom();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [schedules]);
 
@@ -83,10 +98,11 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
-            border:"1px solid #036A3F",
+            background: day === "TODOS" ? "#036a3F" : "",
+            color: day === "TODOS" ? "#FFF" : "#036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("TODOS")}
+          onClick={() => setDay("TODOS")}
         >
           Todos
         </Button>
@@ -94,10 +110,11 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
-            border:"1px solid #036A3F",
+            background: day === "LUNES" ? "#036a3F" : "",
+            color: day === "LUNES" ? "#FFF" : "#036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("LUNES")}
+          onClick={() => setDay("LUNES")}
         >
           Lunes
         </Button>
@@ -105,10 +122,11 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
-            border:"1px solid #036A3F",
+            background: day === "MARTES" ? "#036a3F" : "",
+            color: day === "MARTES" ? "#FFF" : "#036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("MARTES")}
+          onClick={() => setDay("MARTES")}
         >
           Martes
         </Button>
@@ -116,10 +134,11 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
-            border:"1px solid #036A3F",
+            background: day === "MIERCOLES" ? "#036a3F" : "",
+            color: day === "MIERCOLES" ? "#FFF" : "#036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("MIERCOLES")}
+          onClick={() => setDay("MIERCOLES")}
         >
           Miercoles
         </Button>
@@ -127,20 +146,23 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
-            border:"1px solid #036A3F",
+            background: day === "JUEVES" ? "#036a3F" : "",
+            color: day === "JUEVES" ? "#FFF" : "#036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("JUEVES")}
+          onClick={() => setDay("JUEVES")}
         >
           Jueves
-        </Button><Button
+        </Button>
+        <Button
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
-            border:"1px solid #036A3F",
+            background: day === "VIERNES" ? "#036a3F" : "",
+            color: day === "VIERNES" ? "#FFF" : "#036A3F",
+            border: "1px solid #036A3F",
           }}
-          onClick={()=>setDay("VIERNES")}
+          onClick={() => setDay("VIERNES")}
         >
           Viernes
         </Button>
