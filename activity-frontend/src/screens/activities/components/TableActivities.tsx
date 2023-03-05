@@ -15,6 +15,7 @@ import { useApp } from "../../../hooks/useApp";
 import { IActivities } from "../../../interfaces/IActivities";
 import { activitiesActions } from "../../../store/slices/activities/activitiesSlice";
 import { teacherActions } from "../../../store/slices/teacher/teacherSlice";
+import data from "../../../assets/3024051.jpg";
 interface IInput {
   item: string;
 }
@@ -91,179 +92,199 @@ export const TableActivities = () => {
   return (
     <>
       <TableContainer sx={{ maxHeight: 700 }}>
-        <Table
-          stickyHeader
-          sx={{
-            backgroundColor: "#C2DBD0",
-            border: "2px solid #036A3F",
-            fontFamily: "'Quattrocento', 'serif'",
-          }}
-        >
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  sx={{
-                    backgroundColor: "#036A3F",
-                    border: "1px solid #fff",
-                    color: "#fff",
-                    fontFamily: "'Quattrocento', 'serif'",
-                    fontWeight: "bold",
-                    textAlign: "center",
-                  }}
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {activities.map((row) => {
-              return (
-                <TableRow key={row.schedule.idShedule + "row"}>
+        {activities.length === 0 ? (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100%",
+            }}
+          >
+            <img
+              alt="No hay datos"
+              src={data}
+              width="500px"
+              height={"400px"}
+              style={{ borderRadius: "50%" }}
+            />
+          </div>
+        ) : (
+          <Table
+            stickyHeader
+            sx={{
+              backgroundColor: "#C2DBD0",
+              border: "2px solid #036A3F",
+              fontFamily: "'Quattrocento', 'serif'",
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
                   <TableCell
-                    key={row.schedule.time.idTime}
                     sx={{
+                      backgroundColor: "#036A3F",
+                      border: "1px solid #fff",
+                      color: "#fff",
                       fontFamily: "'Quattrocento', 'serif'",
+                      fontWeight: "bold",
                       textAlign: "center",
                     }}
+                    key={column.id}
+                    align={column.align}
+                    style={{ minWidth: column.minWidth }}
                   >
-                    {row.schedule.time.startTime +
-                      "-" +
-                      row.schedule.time.endTime}
+                    {column.label}
                   </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {row.schedule.subject.title}
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "nrc"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {row.schedule.subject.nrc}
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "teacher"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {row.schedule.teacher.names +
-                      " " +
-                      row.schedule.teacher.surname}
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "classroom"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {row.schedule.classroom.fieldClassroom +
-                      "-" +
-                      row.schedule.classroom.numClassroom}
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "input"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {row.timeStart !== "" ? (
-                      row.timeStart
-                    ) : (
-                      <Button
-                        onClick={() =>
-                          handleRegisterTime(
-                            row.schedule.teacher.idTeacher,
-                            row,
-                            "start"
-                          )
-                        }
-                      >
-                        Registrar
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "ouput"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {row.timeEnd !== "" ? (
-                      row.timeEnd
-                    ) : (
-                      <Button
-                        onClick={() =>
-                          handleRegisterTime(
-                            row.schedule.teacher.idTeacher,
-                            row,
-                            "end"
-                          )
-                        }
-                      >
-                        Registrar
-                      </Button>
-                    )}
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "topic"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {
-                      <input
-                        className="form-control"
-                        type="text"
-                        value={row.topicClass}
-                        onClick={() => {
-                          handleRegisterInput(row, "Tema");
-                        }}
-                        readOnly
-                      ></input>
-                    }
-                  </TableCell>
-                  <TableCell
-                    key={row.schedule.subject.idSubject + "observation"}
-                    sx={{
-                      fontFamily: "'Quattrocento', 'serif'",
-                      textAlign: "center",
-                    }}
-                  >
-                    {
-                      <input
-                        className="form-control"
-                        type="text"
-                        value={row.observation}
-                        onClick={() => {
-                          handleRegisterInput(row, "Observación");
-                        }}
-                        readOnly
-                      ></input>
-                    }
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {activities.map((row) => {
+                return (
+                  <TableRow key={row.schedule.idShedule + "row"}>
+                    <TableCell
+                      key={row.schedule.time.idTime}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.schedule.time.startTime +
+                        "-" +
+                        row.schedule.time.endTime}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.schedule.subject.title}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "nrc"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.schedule.subject.nrc}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "teacher"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.schedule.teacher.names +
+                        " " +
+                        row.schedule.teacher.surname}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "classroom"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.schedule.classroom.fieldClassroom +
+                        "-" +
+                        row.schedule.classroom.numClassroom}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "input"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.timeStart !== "" ? (
+                        row.timeStart
+                      ) : (
+                        <Button
+                          onClick={() =>
+                            handleRegisterTime(
+                              row.schedule.teacher.idTeacher,
+                              row,
+                              "start"
+                            )
+                          }
+                        >
+                          Registrar
+                        </Button>
+                      )}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "ouput"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {row.timeEnd !== "" ? (
+                        row.timeEnd
+                      ) : (
+                        <Button
+                          onClick={() =>
+                            handleRegisterTime(
+                              row.schedule.teacher.idTeacher,
+                              row,
+                              "end"
+                            )
+                          }
+                        >
+                          Registrar
+                        </Button>
+                      )}
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "topic"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={row.topicClass}
+                          onClick={() => {
+                            handleRegisterInput(row, "Tema");
+                          }}
+                          readOnly
+                        ></input>
+                      }
+                    </TableCell>
+                    <TableCell
+                      key={row.schedule.subject.idSubject + "observation"}
+                      sx={{
+                        fontFamily: "'Quattrocento', 'serif'",
+                        textAlign: "center",
+                      }}
+                    >
+                      {
+                        <input
+                          className="form-control"
+                          type="text"
+                          value={row.observation}
+                          onClick={() => {
+                            handleRegisterInput(row, "Observación");
+                          }}
+                          readOnly
+                        ></input>
+                      }
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        )}
       </TableContainer>
     </>
   );

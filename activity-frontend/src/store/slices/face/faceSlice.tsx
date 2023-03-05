@@ -19,7 +19,6 @@ const initialState: IFaceState = {
   faceCapture: [],
   loading: false,
   neutralExpression: false,
-  currentIdUser: 1,
   faceUpdated: false,
   picture: null,
   faceActivitySet: null,

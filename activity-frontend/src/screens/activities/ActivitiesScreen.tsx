@@ -35,7 +35,7 @@ export const ActivitiesScreen = () => {
       </div>
       <div style={dashboard}>
         <Col md className="col-md-5 text-center">
-          {hoy}
+          {"Fecha: " + hoy}
         </Col>
         <Col md className="col-md-5  text-center">
           Semestre: OCTUBRE 2022 - MARZO 2023
