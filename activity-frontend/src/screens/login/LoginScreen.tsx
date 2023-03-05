@@ -1,10 +1,11 @@
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/Logo_ESPE.png";
 import { useApp } from "../../hooks/useApp";
 import { FaceRecognitionScreen } from "../face/FaceRecognitionScreen";
 import { DialogLogin } from "./component/DialogLogin";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 export const LoginScreen = () => {
   const navigate = useNavigate();
   const {
@@ -38,6 +39,21 @@ export const LoginScreen = () => {
           </div>
         </Row>
         <Row className="pt-5" style={{ justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              width: "100%",
+            }}
+          >
+            <IconButton
+              sx={{ fontSize: 90, color: "white" }}
+              onClick={() => navigate("/")}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          </div>
           <div>{openLoginEmail ? <></> : <FaceRecognitionScreen />}</div>
         </Row>
         <Row
