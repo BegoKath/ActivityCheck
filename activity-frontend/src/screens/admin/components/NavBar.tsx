@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { authActions } from "../../../store/slices/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
+import ArticleIcon from "@mui/icons-material/Article";
 
 interface itemList {
   label: string;
@@ -31,6 +32,8 @@ export const NavBar = () => {
     closeTimeBody,
     showScheduleBody,
     closeScheduleBody,
+    showActivityBody,
+    closeActivityBody,
   } = useApp();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -48,31 +51,43 @@ export const NavBar = () => {
       closeClassroomBody();
       closeTimeBody();
       closeScheduleBody();
+      closeActivityBody();
       showSubjectBody();
     } else if (label === "Docentes") {
       closeSubjectBody();
       closeClassroomBody();
       closeTimeBody();
       closeScheduleBody();
+      closeActivityBody();
       showTeacherBody();
     } else if (label === "Aulas") {
       closeSubjectBody();
       closeTeacherBody();
       closeTimeBody();
       closeScheduleBody();
+      closeActivityBody();
       showClassroomBody();
     } else if (label === "Horas") {
       closeSubjectBody();
       closeTeacherBody();
       closeScheduleBody();
       closeClassroomBody();
+      closeActivityBody();
       showTimeBody();
+    } else if (label === "Actividades") {
+      closeSubjectBody();
+      closeTeacherBody();
+      closeScheduleBody();
+      closeClassroomBody();
+      closeTimeBody();
+      showActivityBody();
     } else if (label === "Cerrar Sesión") {
       closeSubjectBody();
       closeTeacherBody();
       closeTimeBody();
       closeClassroomBody();
       closeScheduleBody();
+      closeActivityBody();
       dispatch(authActions.resetState());
       navigate("/");
     } else {
@@ -80,6 +95,7 @@ export const NavBar = () => {
       closeTeacherBody();
       closeTimeBody();
       closeClassroomBody();
+      closeActivityBody();
       showScheduleBody();
     }
   };
@@ -137,6 +153,11 @@ export const NavBar = () => {
           keys={3}
         />
         <Item label={"Horas"} icon={<AlarmIcon style={iconLi} />} keys={4} />
+        <Item
+          label={"Actividades"}
+          icon={<ArticleIcon style={iconLi} />}
+          keys={6}
+        />
         <Item
           label={"Cerrar Sesión"}
           icon={<LogoutIcon style={iconLi} />}

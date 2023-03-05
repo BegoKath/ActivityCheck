@@ -19,6 +19,8 @@ export const useApp = () => {
   const closeScheduleBody = () => dispatch(appActions.setScheduleBody(false));
   const showTimeBody = () => dispatch(appActions.setTimeBody(true));
   const closeTimeBody = () => dispatch(appActions.setTimeBody(false));
+  const showActivityBody = () => dispatch(appActions.setActivityBody(true));
+  const closeActivityBody = () => dispatch(appActions.setActivityBody(false));
   const showDialogSchedule = () => dispatch(appActions.setDialogSchedule(true));
   const closeDialogSchedule = () =>
     dispatch(appActions.setDialogSchedule(false));
@@ -43,6 +45,8 @@ export const useApp = () => {
     showDialogSchedule,
     closeDialogSchedule,
     showFaceRegister,
-    closeFaceRegister
+    closeFaceRegister,
+    showActivityBody,
+    closeActivityBody,
   };
 };

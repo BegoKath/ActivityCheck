@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Container, Row } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useApp } from "../../hooks/useApp";
+import { ActivityBody } from "./components/activityBody";
 //import { Alert } from "../../utils/Alert";
 import { ClassroomBody } from "./components/ClassroomBody";
 import { NavBar } from "./components/NavBar";
@@ -13,7 +14,14 @@ var CryptoJS = require("crypto-js");
 
 export const AdminScreen = () => {
   const {
-    state: { navBarAdmin, subjectBody, teacherBody, classroomBody, timeBody },
+    state: {
+      navBarAdmin,
+      subjectBody,
+      teacherBody,
+      classroomBody,
+      timeBody,
+      activityBody,
+    },
   } = useApp();
   const location = useLocation();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,7 +32,6 @@ export const AdminScreen = () => {
       var decrypted = CryptoJS.AES.decrypt(param, "Egresados");
       const email = decrypted.toString(CryptoJS.enc.Utf8);
       if (email !== "admin@admin.com") {
-        console.log(email);
         // Alert.showError("El email no coincide con el usuario de administrador");
       }
     }
@@ -41,6 +48,8 @@ export const AdminScreen = () => {
       return <ClassroomBody key={"classroomBody"} />;
     } else if (timeBody) {
       return <TimeBody key={"timeBody"} />;
+    } else if (activityBody) {
+      return <ActivityBody key={"timeBody"} />;
     } else {
       return <ScheduleBody key={"scheduleBody"} />;
     }

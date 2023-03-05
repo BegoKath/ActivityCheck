@@ -7,20 +7,22 @@ export interface IAppState {
   subjectBody: boolean;
   teacherBody: boolean;
   classroomBody: boolean;
-  scheduleBody:boolean;
-  timeBody:boolean;
-  showFaceRegisterDialog:boolean;
+  scheduleBody: boolean;
+  timeBody: boolean;
+  activityBody: boolean;
+  showFaceRegisterDialog: boolean;
 }
 const initialState: IAppState = {
   openLoginEmail: false,
-  openDialogSchedule:false,
-  showFaceRegisterDialog:false,
+  openDialogSchedule: false,
+  showFaceRegisterDialog: false,
   navBarAdmin: true,
   subjectBody: false,
   teacherBody: false,
   classroomBody: false,
-  scheduleBody:true,
-  timeBody:false
+  scheduleBody: true,
+  activityBody: false,
+  timeBody: false,
 };
 export const appSlice = createSlice({
   name: "app",
@@ -44,19 +46,21 @@ export const appSlice = createSlice({
     setClassroomBody: (state, action: PayloadAction<boolean>) => {
       state.classroomBody = action.payload;
     },
-    setScheduleBody:(state, action: PayloadAction<boolean>)=>{
+    setScheduleBody: (state, action: PayloadAction<boolean>) => {
       state.scheduleBody = action.payload;
     },
-    setTimeBody:(state, action: PayloadAction<boolean>)=>{
+    setTimeBody: (state, action: PayloadAction<boolean>) => {
       state.timeBody = action.payload;
     },
-    showFaceRegister:(state)=>{
+    setActivityBody: (state, action: PayloadAction<boolean>) => {
+      state.activityBody = action.payload;
+    },
+    showFaceRegister: (state) => {
       state.showFaceRegisterDialog = true;
     },
-    closeFaceRegister:(state)=>{
+    closeFaceRegister: (state) => {
       state.showFaceRegisterDialog = false;
     },
-    
   },
 });
 
