@@ -90,7 +90,8 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
+            background: day === "SABADO" || day === "DOMINGO" ? "#036a3F" : "",
+            color: day === "SABADO" || day === "DOMINGO" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
           onClick={() => setDay("TODOS")}
@@ -101,7 +102,8 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
+            background: day === "LUNES" ? "#036a3F" : "",
+            color: day === "LUNES" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
           onClick={() => setDay("LUNES")}
@@ -112,7 +114,8 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
+            background: day === "MARTES" ? "#036a3F" : "",
+            color: day === "MARTES" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
           onClick={() => setDay("MARTES")}
@@ -123,7 +126,8 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
+            background: day === "MIERCOLES" ? "#036a3F" : "",
+            color: day === "MIERCOLES" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
           onClick={() => setDay("MIERCOLES")}
@@ -134,7 +138,8 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
+            background: day === "JUEVES" ? "#036a3F" : "",
+            color: day === "JUEVES" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
           onClick={() => setDay("JUEVES")}
@@ -145,7 +150,8 @@ export const ScheduleBody = () => {
           style={{
             fontFamily: "'Quattrocento', 'serif'",
             fontSize: "15px",
-            color: "#036A3F",
+            background: day === "VIERNES" ? "#036a3F" : "",
+            color: day === "VIERNES" ? "#FFF" : "#036A3F",
             border: "1px solid #036A3F",
           }}
           onClick={() => setDay("VIERNES")}
