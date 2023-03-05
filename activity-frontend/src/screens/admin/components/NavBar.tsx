@@ -4,8 +4,12 @@ import BookIcon from "@mui/icons-material/Book";
 import QueryBuilderIcon from "@mui/icons-material/QueryBuilder";
 import GroupsIcon from "@mui/icons-material/Groups";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import AlarmIcon from '@mui/icons-material/Alarm';
+import AlarmIcon from "@mui/icons-material/Alarm";
 import { useApp } from "../../../hooks/useApp";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../../store/slices/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 interface itemList {
   label: string;
@@ -28,6 +32,8 @@ export const NavBar = () => {
     showScheduleBody,
     closeScheduleBody,
   } = useApp();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   let openClose = () => {
     if (navBarAdmin === false) {
@@ -61,6 +67,14 @@ export const NavBar = () => {
       closeScheduleBody();
       closeClassroomBody();
       showTimeBody();
+    } else if (label === "Cerrar Sesión") {
+      closeSubjectBody();
+      closeTeacherBody();
+      closeTimeBody();
+      closeClassroomBody();
+      closeScheduleBody();
+      dispatch(authActions.resetState());
+      navigate("/");
     } else {
       closeSubjectBody();
       closeTeacherBody();
@@ -122,10 +136,11 @@ export const NavBar = () => {
           icon={<MeetingRoomIcon style={iconLi} />}
           keys={3}
         />
+        <Item label={"Horas"} icon={<AlarmIcon style={iconLi} />} keys={4} />
         <Item
-          label={"Horas"}
-          icon={<AlarmIcon style={iconLi} />}
-          keys={4}
+          label={"Cerrar Sesión"}
+          icon={<LogoutIcon style={iconLi} />}
+          keys={5}
         />
       </ul>
     </nav>
