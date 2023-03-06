@@ -17,7 +17,6 @@ const loadModels =
 
     try {
       dispatch(faceActions.startLoading());
-
       await faceapi.nets.tinyFaceDetector.loadFromUri("./FaceApiModels");
       await faceapi.nets.faceLandmark68Net.loadFromUri("./FaceApiModels");
       await faceapi.nets.faceRecognitionNet.loadFromUri("./FaceApiModels");

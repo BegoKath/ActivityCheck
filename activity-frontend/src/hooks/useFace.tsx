@@ -26,14 +26,8 @@ export const useFace = (props: {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const {
-    faceCapture,
-    authMode,
-    userFounded,
-    currentIdUser,
-    faceUpdated,
-    faceActivitySet,
-  } = state;
+  const { faceCapture, authMode, userFounded, faceUpdated, faceActivitySet } =
+    state;
   const {
     state: { teacher },
     logInWithId,
@@ -86,6 +80,12 @@ export const useFace = (props: {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [faceUpdated]);
+
+  useEffect(() => {
+    activityUpdate();
+    console.log(userFounded);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userFounded, teacher]);
   const activityUpdate = async () => {
     if (userFounded) {
       if (pathname === "/") {
@@ -125,20 +125,15 @@ export const useFace = (props: {
         }
       } else {
         if (!teacher) {
+          console.log("teacher");
           logInWithId(userFounded);
         } else if (userFounded === teacher.idTeacher) {
-          if (pathname === "/login") {
-            navigate("/");
-          }
+          console.log("teacher");
+          navigate("/teacher");
         }
       }
     }
   };
-  useEffect(() => {
-    activityUpdate();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userFounded]);
-
   const loadModels = () =>
     dispatch(faceThunks.loadModels({ session: teacher, screen: pathname }));
 
@@ -210,7 +205,7 @@ export const useFace = (props: {
     }
   };
   const handleFaceNotFound = async () => {
-    closeFaceRegister();
+    //closeFaceRegister();
     await Alert.showError("Lo sentimos, no hemos podido reconocerte", {
       title: "Usuario no encontrado",
       timer: 5,
@@ -263,9 +258,13 @@ export const useFace = (props: {
         if (notFoundCounter === 10) {
           handleFaceNotFound();
         }
-      } else if (faceCapture.length < 3 && counter % 3 === 0) {
+      } else if (
+        authMode === false &&
+        faceCapture.length < 3 &&
+        counter % 3 === 0
+      ) {
         saveFace();
-      } else if (faceCapture.length === 3) {
+      } else if (authMode === false && faceCapture.length === 3) {
         sendFaceToServer();
       }
     } else {
@@ -312,12 +311,9 @@ export const useFace = (props: {
   };
 
   const sendFaceToServer = () => {
-    if (!currentIdUser) {
-      Alert.showError("No hay ningun ID de docente");
-      return;
-    }
     const { teacher } = store.getState().teacher;
     if (!teacher) {
+      Alert.showError("No hay ningun ID de docente");
       throw new Error("No hay teacher");
     }
     dispatch(teacherThunks.setTeacher(teacher, faceCapture));

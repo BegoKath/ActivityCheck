@@ -39,4 +39,8 @@ namespace CustomerWebApi.Models
         public bool Justify { get; set; }
         public ResponseSchedule Schedule { get; set; }
     }
+    public class RequerimentsGetActivitiesForTeacher
+    {
+        public int IdTeacher { get; set; }
+    }
 }

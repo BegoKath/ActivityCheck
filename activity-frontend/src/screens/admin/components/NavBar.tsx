@@ -158,6 +158,7 @@ export const NavBar = () => {
           icon={<ArticleIcon style={iconLi} />}
           keys={6}
         />
+
         <Item
           label={"Cerrar Sesión"}
           icon={<LogoutIcon style={iconLi} />}

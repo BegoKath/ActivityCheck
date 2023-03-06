@@ -9,6 +9,8 @@ export const useApp = () => {
   const closeDialogLogin = () => dispatch(appActions.showLoginEmail(false));
   const showNavBarAdmin = () => dispatch(appActions.setNavBarAdmin(true));
   const closeNavBarAdmin = () => dispatch(appActions.setNavBarAdmin(false));
+  const showNavBarTeacher = () => dispatch(appActions.setNavBarTeacher(true));
+  const closeNavBarTeacher = () => dispatch(appActions.setNavBarTeacher(false));
   const showSubjectBody = () => dispatch(appActions.setSubjectBody(true));
   const closeSubjectBody = () => dispatch(appActions.setSubjectBody(false));
   const showTeacherBody = () => dispatch(appActions.setTeacherBody(true));
@@ -26,12 +28,20 @@ export const useApp = () => {
     dispatch(appActions.setDialogSchedule(false));
   const showFaceRegister = () => dispatch(appActions.showFaceRegister());
   const closeFaceRegister = () => dispatch(appActions.closeFaceRegister());
+  const showReportBody = () => dispatch(appActions.setReportBody(true));
+  const closeReportBody = () => dispatch(appActions.setReportBody(false));
+  const showActivityBodyTeacher = () =>
+    dispatch(appActions.setActivityBodyTeacher(true));
+  const closeActivityBodyTeacher = () =>
+    dispatch(appActions.setActivityBodyTeacher(false));
   return {
     state,
     showDialogLogin,
     closeDialogLogin,
     showNavBarAdmin,
     closeNavBarAdmin,
+    showNavBarTeacher,
+    closeNavBarTeacher,
     showSubjectBody,
     closeSubjectBody,
     showTeacherBody,
@@ -48,5 +58,9 @@ export const useApp = () => {
     closeFaceRegister,
     showActivityBody,
     closeActivityBody,
+    showReportBody,
+    closeReportBody,
+    showActivityBodyTeacher,
+    closeActivityBodyTeacher,
   };
 };

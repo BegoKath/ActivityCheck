@@ -1,8 +1,10 @@
 import { Dispatch } from "@reduxjs/toolkit";
+import { IActivities } from "../../../interfaces/IActivities";
 import { ITeacher } from "../../../interfaces/ITeacher";
 import { FacesService } from "../../../services/FaceService";
 import { TeacherService } from "../../../services/TeacherService";
 import { Alert } from "../../../utils/Alert";
+import { activitiesActions } from "../activities/activitiesSlice";
 import { appActions } from "../app/appSlice";
 import { faceActions } from "../face/faceSlice";
 import { teacherActions } from "./teacherSlice";
@@ -44,8 +46,17 @@ const deleteTeacher =
       return false;
     }
   };
+const getActivitiesTeacher =
+  (idTeacher: number): any =>
+  async (dispatch: Dispatch) => {
+    const res = await TeacherService.getActivitiesTeacher(idTeacher);
+    if (res) {
+      dispatch(activitiesActions.setActivities(res as IActivities[]));
+    }
+  };
 export const teacherThunks = {
   getTeachers,
   setTeacher,
   deleteTeacher,
+  getActivitiesTeacher,
 };

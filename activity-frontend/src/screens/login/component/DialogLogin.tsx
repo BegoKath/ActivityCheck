@@ -62,7 +62,7 @@ export const DialogLogin = () => {
     if (res === "OK") {
       closeDialog();
       await Alert.showSuccess({ message: "Inicio de sesión con exito" });
-      navigate("/activities");
+      navigate("/teacher");
     } else {
       if (res === "PASSWORD") {
         closeDialog();

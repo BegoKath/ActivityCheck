@@ -1,5 +1,5 @@
+import { useActivities } from "../../../hooks/useActivities";
 import {
-  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -7,28 +7,86 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Alert } from "../../../utils/Alert";
-import { useEffect } from "react";
 import data from "../../../assets/3024051.jpg";
-import { useActivities } from "../../../hooks/useActivities";
-import CheckIcon from "@mui/icons-material/Check";
+import Swal from "sweetalert2";
 import { IActivities } from "../../../interfaces/IActivities";
+import { useEffect } from "react";
+import { useTeacher } from "../../../hooks/useTeacher";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { ReportPDFActivities } from "./ReportPDFActivities";
+import { ReportActivitiesTeacher } from "./ReportActivitiesTeacher";
 import { Button } from "react-bootstrap";
-export const ActivityBody = () => {
+import { useAuth } from "../../../hooks/useAuth";
+import { authActions } from "../../../store/slices/auth/authSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+interface IInput {
+  item: string;
+}
+
+export const ActivitiesTeacherBody = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const {
     state: { activities },
-    getActivities,
-    deleteActivities,
     updateActivity,
   } = useActivities();
-
+  const {
+    state: { teacher },
+  } = useAuth();
+  const { getActivitiesTeacher } = useTeacher();
   useEffect(() => {
-    getActivities();
+    if (teacher!.idTeacher) {
+      getActivitiesTeacher(teacher!.idTeacher);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activities]);
+  const newInput = async (input: string) => {
+    return await Swal.fire({
+      title: "",
+      html:
+        '<div class="form-group">' +
+        `<label for="${input}"${input}</label>` +
+        `<input type="text" class="form-control" id="${input}" placeholder="${input}">` +
+        "</div>",
+      showCancelButton: true,
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Guardar",
+      showLoaderOnConfirm: true,
+      preConfirm: () => {
+        const item = (document.getElementById(input) as HTMLInputElement).value;
+        if (item!) {
+          return new Promise(function (resolve) {
+            resolve({ item });
+          });
+        }
+      },
+    });
+  };
+  const handleRegisterInput = async (values: IActivities, input: string) => {
+    const alert = await newInput(input);
+    if (alert.isConfirmed) {
+      if (values) {
+        const item = alert.value as IInput;
+        var activity: IActivities = {
+          idActivities: values.idActivities,
+          dateRegister: values.dateRegister,
+          timeStart: values.timeStart,
+          timeEnd: values.timeEnd,
+          topicClass:
+            input === "Tema" ? (item.item as string) : values.topicClass,
+          observation:
+            input === "Observación"
+              ? (item.item as string)
+              : values.observation,
+          schedule: values.schedule,
+          justify: input === "Observación" ? true : false,
+        };
+        if (values.idActivities) {
+          updateActivity(activity);
+        }
+      }
+    }
+  };
   return (
     <div style={body}>
       <div
@@ -41,9 +99,9 @@ export const ActivityBody = () => {
           fontWeight: "bold",
         }}
       >
-        Docentes
+        Horarios
         <PDFDownloadLink
-          document={<ReportPDFActivities activities={activities} />}
+          document={<ReportActivitiesTeacher activities={activities} />}
           fileName="Reporte"
         >
           {({ loading }) =>
@@ -58,6 +116,15 @@ export const ActivityBody = () => {
             )
           }
         </PDFDownloadLink>
+        <Button
+          size="sm"
+          onClick={() => {
+            dispatch(authActions.resetState());
+            navigate("/");
+          }}
+        >
+          Cerrar Sesión
+        </Button>
       </div>
       <div>
         <TableContainer sx={{ maxHeight: 700 }}>
@@ -147,20 +214,7 @@ export const ActivityBody = () => {
                     >
                       NRC
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: "#036A3F",
-                        border: "1px solid #fff",
-                        color: "#fff",
-                        fontFamily: "'Quattrocento', 'serif'",
-                        fontWeight: "bold",
-                        textAlign: "center",
-                      }}
-                      key={5}
-                      align="center"
-                    >
-                      Nombre del docente
-                    </TableCell>
+
                     <TableCell
                       sx={{
                         backgroundColor: "#036A3F",
@@ -231,38 +285,10 @@ export const ActivityBody = () => {
                     >
                       Observación
                     </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: "#036A3F",
-                        border: "1px solid #fff",
-                        color: "#fff",
-                        fontFamily: "'Quattrocento', 'serif'",
-                        fontWeight: "bold",
-                        textAlign: "center",
-                      }}
-                      key={11}
-                      align="center"
-                    >
-                      Justificar
-                    </TableCell>
-                    <TableCell
-                      sx={{
-                        backgroundColor: "#036A3F",
-                        border: "1px solid #fff",
-                        color: "#fff",
-                        fontFamily: "'Quattrocento', 'serif'",
-                        fontWeight: "bold",
-                        textAlign: "center",
-                      }}
-                      key={12}
-                      align="center"
-                    >
-                      <DeleteIcon />
-                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {activities.map((row) => {
+                  {Array.from(activities).map((row) => {
                     return (
                       <TableRow key={row.idActivities + "row"}>
                         <TableCell
@@ -307,18 +333,7 @@ export const ActivityBody = () => {
                         >
                           {row.schedule.subject.nrc}
                         </TableCell>
-                        <TableCell
-                          key={row.idActivities + "teacher"}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
 
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.schedule.teacher.names +
-                            " " +
-                            row.schedule.teacher.surname}
-                        </TableCell>
                         <TableCell
                           key={row.idActivities + "classroom"}
                           sx={{
@@ -354,81 +369,46 @@ export const ActivityBody = () => {
                           {row.timeEnd.length === 0 ? "No existe" : row.timeEnd}
                         </TableCell>
                         <TableCell
-                          key={row.idActivities + "topic"}
+                          key={row.schedule.subject.idSubject + "topic"}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
-
                             textAlign: "center",
                           }}
                         >
-                          {row.topicClass}
-                        </TableCell>
-                        <TableCell
-                          key={row.idActivities + "observation"}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.observation.length === 0
-                            ? "N/A"
-                            : row.observation}
-                        </TableCell>
-                        <TableCell
-                          key={row.idActivities + "justify"}
-                          sx={{
-                            fontFamily: "'Quattrocento', 'serif'",
-
-                            textAlign: "center",
-                          }}
-                        >
-                          {row.justify ? (
-                            <Button
-                              style={{ background: "#036A3F" }}
+                          {
+                            <input
+                              className="form-control"
+                              type="text"
+                              value={row.topicClass}
                               onClick={() => {
-                                const item: IActivities = {
-                                  idActivities: row.idActivities,
-                                  dateRegister: row.dateRegister,
-                                  timeStart: row.timeStart,
-                                  timeEnd: row.timeEnd,
-                                  topicClass: row.topicClass,
-                                  observation: row.observation,
-                                  justify: false,
-                                  schedule: row.schedule,
-                                };
-                                updateActivity(item);
+                                handleRegisterInput(row, "Tema");
                               }}
-                            >
-                              Justificar
-                            </Button>
-                          ) : (
-                            <CheckIcon color="success" />
-                          )}
+                              readOnly
+                            ></input>
+                          }
                         </TableCell>
                         <TableCell
-                          key={row.idActivities + "button"}
+                          key={row.schedule.subject.idSubject + "observation"}
                           sx={{
                             fontFamily: "'Quattrocento', 'serif'",
                             textAlign: "center",
                           }}
                         >
-                          <IconButton
-                            onClick={async () => {
-                              const res = await deleteActivities(
-                                row.idActivities as number
-                              );
-                              if (res) {
-                                Alert.showSuccess({
-                                  message: "Eliminado con exito",
-                                });
-                              } else {
-                                Alert.showError("Error, vuelva a intentar.");
+                          {
+                            <input
+                              className="form-control"
+                              type="text"
+                              value={
+                                row.observation === null
+                                  ? "N/A"
+                                  : row.observation
                               }
-                            }}
-                          >
-                            <DeleteIcon color="error" />
-                          </IconButton>
+                              onClick={() => {
+                                handleRegisterInput(row, "Observación");
+                              }}
+                              readOnly
+                            ></input>
+                          }
                         </TableCell>
                       </TableRow>
                     );

@@ -21,7 +21,6 @@ interface IInput {
 }
 export const TableActivities = () => {
   const dispatch = useDispatch();
-
   const {
     state: { activities },
     updateActivity,
