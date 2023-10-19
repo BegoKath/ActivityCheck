@@ -1,0 +1,113 @@
+import { Button, IconButton } from "@mui/material";
+import { Container, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/Logo_ESPE.png";
+import { useApp } from "../../hooks/useApp";
+import { FaceRecognitionScreen } from "../face/FaceRecognitionScreen";
+import { DialogLogin } from "./component/DialogLogin";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+export const LoginScreen = () => {
+  const navigate = useNavigate();
+  const {
+    state: { openLoginEmail },
+    showDialogLogin,
+  } = useApp();
+  return (
+    <Container style={page}>
+      <div className="w-100">
+        <Row className="pt-5">
+          <div className="col-2" style={column}>
+            <img
+              src={logo}
+              alt="Logo"
+              width={"100px"}
+              className="img-fluid img-thumbnail"
+              style={{ background: "transparent", border: "0px" }}
+            />
+          </div>
+          <div className="col-8 text-center" style={column}>
+            Sistema de control de actividades
+          </div>
+          <div className="col-2" style={column}>
+            <img
+              src={logo}
+              alt="Logo"
+              width={"100px"}
+              className="img-fluid img-thumbnail"
+              style={{ background: "transparent", border: "0px" }}
+            />
+          </div>
+        </Row>
+        <Row className="pt-5" style={{ justifyContent: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "start",
+              width: "100%",
+            }}
+          >
+            <IconButton
+              sx={{ fontSize: 90, color: "white" }}
+              onClick={() => navigate("/")}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          </div>
+          <div>{openLoginEmail ? <></> : <FaceRecognitionScreen />}</div>
+        </Row>
+        <Row
+          className="pt-5 d-flex flex-row"
+          style={{ justifyContent: "center" }}
+        >
+          <Button
+            style={{
+              width: "200px",
+              marginTop: "20px",
+              fontFamily: "'Quattrocento', 'serif'",
+              fontSize: "15px",
+              color: "#036A3F",
+              background: "#fff",
+            }}
+            onClick={showDialogLogin}
+          >
+            Correo electrónico
+          </Button>
+          <Button
+            style={{
+              width: "200px",
+              marginTop: "20px",
+              marginLeft: "20px",
+              fontFamily: "'Quattrocento', 'serif'",
+              fontSize: "15px",
+              color: "#036A3F",
+              background: "#fff",
+            }}
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Crear Cuenta
+          </Button>
+        </Row>
+      </div>
+      <DialogLogin />
+    </Container>
+  );
+};
+const page: React.CSSProperties = {
+  minWidth: "100%",
+  minHeight: "100vh",
+  fontFamily: "'Quattrocento', 'serif'",
+  margin: 0,
+  display: "flex",
+  background: "#036A3F",
+};
+const column: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  fontSize: "35px",
+  color: "#fff",
+};
